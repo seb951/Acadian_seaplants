@@ -1,0 +1,8 @@
+"soil_fungi" "root.fungi" "soil_bact" "root_bact"
+"fertilization" "0.02 (4e-04)" "0.04 (0.0013)" "0.03 (1e-04)" "0.01 (0.0705)"
+"planted" "0.15 (1e-04)" NA "0.06 (1e-04)" NA
+"species" "0.02 (2e-04)" "0.2 (1e-04)" "0.01 (0.0032)" "0.42 (1e-04)"
+"fertilization:planted" "0.01 (0.008)" NA "0.02 (1e-04)" NA
+"fertilization:species" "0.01 (0.0705)" "0.03 (0.0094)" "0.01 (0.002)" "0.01 (0.0973)"
+"planted:species" "0.01 (0.1597)" NA "0.01 (0.1767)" NA
+"fertilization:planted:species" "0 (0.7956)" NA "0.01 (0.1179)" NA
