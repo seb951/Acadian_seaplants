@@ -123,11 +123,11 @@ colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 lmm.alpha.interactions <- lme(alpha~fertilization*species,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
 anova(lmm.alpha.interactions)
 
-#numDF denDF  F-value p-value
-#(Intercept)               1    69 738.2561  <.0001
-#fertilization             1    69  16.9513  0.0001
-#species                   1    69  76.5752  <.0001
-#fertilization:species     1    69   8.1343  0.0057
+#                       numDF denDF   F-value p-value
+#(Intercept)               1    56 2049.2903  <.0001
+#fertilization             1    56   13.5670   5e-04
+#species                   1    56   74.3189  <.0001
+#fertilization:species     1    56    9.6546   3e-03
 
 shapiro.test(lmm.alpha.interactions$residuals[,1]) #normaly distributed (otherwise can do a log or sqrt?)
 #W = 0.97665, p-value = 0.0842

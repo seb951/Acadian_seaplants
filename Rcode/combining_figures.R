@@ -11,36 +11,41 @@ library(phangorn)
 library(phyloseq)
 
 #Figure 4 - barplots -----
-figure4 = multi_panel_figure(width = 28,height = 8, unit = "inch",rows = 1,columns = 4)
+figure4 = multi_panel_figure(width = 14,height = 16, unit = "inch",rows = 2,columns = 2)
 
-figure4 %<>% fill_panel("figures/bacteria/Figure4br_FAMILY_ASVabundance.pdf",row = 1, column = 1)
-figure4 %<>% fill_panel("figures/bacteria/Figure4bs_FAMILY_ASVabundance.pdf",row = 1, column = 2)
-figure4 %<>% fill_panel("figures/fungi/Figure4fr_FAMILY_ASVabundance.pdf",row = 1, column = 3)
-figure4 %<>% fill_panel("figures/fungi/Figure4fs_FAMILY_ASVabundance.pdf",row = 1, column = 4)
+figure4 %<>% fill_panel("figures/fungi/Figure4fs_FAMILY_ASVabundance.pdf",row = 1, column = 1)
+figure4 %<>% fill_panel("figures/fungi/Figure4fr_FAMILY_ASVabundance.pdf",row = 1, column = 2)
+figure4 %<>% fill_panel("figures/bacteria/Figure4bs_FAMILY_ASVabundance.pdf",row = 2, column = 1)
+figure4 %<>% fill_panel("figures/bacteria/Figure4br_FAMILY_ASVabundance.pdf",row = 2, column = 2)
+
+
 
 figure4 %>% save_multi_panel_figure(filename = "figures/Figure4_barplots.pdf")
 
 #Figure 6 - RDA -----
 figure6 = multi_panel_figure(width = 28,height = 14, unit = "inch",rows = 2,columns = 4)
 
-figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Tomato.pdf",row = 1, column = 1)
-figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Pepper.pdf",row = 2, column = 1)
-figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Tomato.pdf",row = 1, column = 2)
-figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Pepper.pdf",row = 2, column = 2)
-figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Tomato.pdf",row = 1, column = 3)
-figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Pepper.pdf",row = 2, column = 3)
-figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Tomato.pdf",row = 1, column = 4)
-figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Pepper.pdf",row = 2, column = 4)
+
+figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Tomato.pdf",row = 1, column = 1)
+figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Tomato.pdf",row = 1, column = 2)
+figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Tomato.pdf",row = 1, column = 3)
+figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Tomato.pdf",row = 1, column = 4)
+
+figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Pepper.pdf",row = 2, column = 1)
+figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Pepper.pdf",row = 2, column = 2)
+figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Pepper.pdf",row = 2, column = 3)
+figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Pepper.pdf",row = 2, column = 4)
 
 figure6 %>% save_multi_panel_figure(filename = "figures/Figure6_rda.pdf")
 
 
 #Figure5 - alpha -----
 figure5 = multi_panel_figure(width = 18,height = 14, unit = "inch",rows = 2,columns = 2)
-figure5 %<>% fill_panel("figures/bacteria/Figure4bs_alpha.pdf",row = 1, column = 1)
-figure5 %<>% fill_panel("figures/bacteria/Figure4br_alpha.pdf",row = 1, column = 2)
-figure5 %<>% fill_panel("figures/fungi/Figure4fs_alpha.pdf",row = 2, column = 1)
-figure5 %<>% fill_panel("figures/fungi/Figure4fr_alpha.pdf",row = 2, column = 2)
+
+figure5 %<>% fill_panel("figures/fungi/Figure4fs_alpha.pdf",row = 1, column = 1)
+figure5 %<>% fill_panel("figures/fungi/Figure4fr_alpha.pdf",row = 1, column = 2)
+figure5 %<>% fill_panel("figures/bacteria/Figure4bs_alpha.pdf",row = 2, column = 1)
+figure5 %<>% fill_panel("figures/bacteria/Figure4br_alpha.pdf",row = 2, column = 2)
 figure5 %>% save_multi_panel_figure(filename = "figures/Figure5_alpha.pdf")
 
 
@@ -62,6 +67,10 @@ for(i in 1:80)
   {
     candidate.ASV.all$names_collapse[i]=paste(candidate.ASV.all[i,c(1,6:11)],collapse = ";")
     candidate.ASV.all$names_collapse[i]=gsub(";NA","",candidate.ASV.all$names_collapse[i],ignore.case=T)
+    #get only the ASV + last part of the taxonomy
+    temp_taxo=strsplit(candidate.ASV.all$names_collapse[i],split = ";")[[1]]
+    if(length(temp_taxo)==1) candidate.ASV.all$names_collapse[i] = temp_taxo
+    if(length(temp_taxo)>1) candidate.ASV.all$names_collapse[i] = paste(temp_taxo[1],temp_taxo[length(temp_taxo)],collapse = ";")
     }
 
 #plot trees
@@ -93,7 +102,28 @@ for(taxa in c("Bacteria","Fungi"))
   #plot.phylo
   dev.new()
   plot.phylo(treeNJ,cex = 0.5,tip.color = tip.color[candidate.ASV.all$Kingdom==taxa],font = 2,main = taxa,xpd = T)
-  legend(max(treeNJ$edge.length),40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"))
+  if(taxa == "Fungi") legend(max(treeNJ$edge.length),40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"))
+  if(taxa == "Bacteria") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "white")
   dev.print(device=pdf, paste("figures/",tolower(taxa),"/Figure7_",tolower(taxa),"_tree.pdf",sep = ""), onefile=FALSE)
   dev.off()
   }
+
+
+#Figure 7 - trees -----
+figure7 = multi_panel_figure(width = 14,height = 7, unit = "inch",rows = 1,columns = 2)
+figure7 %<>% fill_panel("figures/bacteria/Figure7_bacteria_tree.pdf",row = 1, column = 2)
+figure7 %<>% fill_panel("figures/fungi/Figure7_fungi_tree.pdf",row = 1, column = 1)
+figure7 %>% save_multi_panel_figure(filename = "figures/Figure7_candidateASVs.pdf")
+
+#Figure 7 - candidates
+#fungi root
+candidates = NULL
+candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV70",])
+candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV191",])
+#fungi - soil
+candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV243",])
+candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV264",])
+candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV252",])
+
+
+

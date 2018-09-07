@@ -131,7 +131,7 @@ colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (block & replicate are random, replicate is nested in bloc)
 lmm.alpha.interactions <- lme(alpha~fertilization*species,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
-anova(lmm.alpha.interactions) #no interactions so...
+anova(lmm.alpha.interactions) #interactions
 
 #numDF denDF  F-value p-value
 #(Intercept)               1    67 43885.41  <.0001

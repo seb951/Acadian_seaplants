@@ -132,7 +132,7 @@ asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm,
 colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (block & replicate are random, replicate is nested in bloc)
-lmm.alpha.interactions <- lme(alpha~fertilization+species+planted,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
+lmm.alpha.interactions <- lme(alpha~fertilization*planted+species,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
 anova(lmm.alpha.interactions)
 
 #numDF denDF   F-value p-value
