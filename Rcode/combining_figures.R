@@ -17,9 +17,6 @@ figure4 %<>% fill_panel("figures/fungi/Figure4fs_FAMILY_ASVabundance.pdf",row = 
 figure4 %<>% fill_panel("figures/fungi/Figure4fr_FAMILY_ASVabundance.pdf",row = 1, column = 2)
 figure4 %<>% fill_panel("figures/bacteria/Figure4bs_FAMILY_ASVabundance.pdf",row = 2, column = 1)
 figure4 %<>% fill_panel("figures/bacteria/Figure4br_FAMILY_ASVabundance.pdf",row = 2, column = 2)
-
-
-
 figure4 %>% save_multi_panel_figure(filename = "figures/Figure4_barplots.pdf")
 
 #Figure 6 - RDA -----

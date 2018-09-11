@@ -95,7 +95,7 @@ dev.off()
 #summarize with dplyr by family
 asv.filt.abundants.norm.FAMILY = as.data.frame(asv.filt.abundants.norm.barplot) %>% group_by(taxo.abundants$Family) %>% summarise_all(sum)
 
-asv.filt.abundants.norm.FAMILY[11,1] = "Oxyphotobacteria (Class)*"
+asv.filt.abundants.norm.FAMILY[11,1] = "chloroplast*"
 asv.filt.abundants.norm.FAMILY[4,1] = "Alphaproteobacteria (Class)*"
 
 #top10
@@ -119,8 +119,6 @@ p = ggplot() + labs(title = "Roots - bacteria",fill = "Taxonomy (Family)") +
 p + scale_fill_brewer(palette = "Set3")
 dev.print(device=pdf, "figures/bacteria/Figure4br_FAMILY_ASVabundance.pdf", onefile=FALSE)
 dev.off()
-
-
 
 
 
