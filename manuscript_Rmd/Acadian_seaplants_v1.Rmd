@@ -1,6 +1,6 @@
 ---
 output: 
-#  word_document:
+  word_document:
   pdf_document:
     keep_tex: true
     fig_caption: true
