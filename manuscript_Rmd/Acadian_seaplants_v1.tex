@@ -1,45 +1,35 @@
 \documentclass[11pt,]{article}
-\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
-\newcommand*{\authorfont}{\fontfamily{phv}\selectfont}
 \usepackage[]{mathpazo}
-
-
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-
-
-
-\usepackage{abstract}
-\renewcommand{\abstractname}{}    % clear the title
-\renewcommand{\absnamepos}{empty} % originally center
-
-\renewenvironment{abstract}
- {{%
-    \setlength{\leftmargin}{0mm}
-    \setlength{\rightmargin}{\leftmargin}%
-  }%
-  \relax}
- {\endlist}
-
-\makeatletter
-\def\@maketitle{%
-  \newpage
-%  \null
-%  \vskip 2em%
-%  \begin{center}%
-  \let \footnote \thanks
-    {\fontsize{18}{20}\selectfont\raggedright  \setlength{\parindent}{0pt} \@title \par}%
-}
-%\fi
-\makeatother
-
-
-
-
-\setcounter{secnumdepth}{0}
-
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={The effect of Ascophyllum nodosum extracts on tomato and pepper plant productivity and their associated fungal and bacterial communities.},
+            pdfkeywords={Stella Marris, 16S, ITS, microbial diversity, Illumina MiSeq},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
 \usepackage{longtable,booktabs}
-
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -49,143 +39,64 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-
-\title{\textbf{The effect of \emph{Ascophyllum nodosum} extracts on tomato and
-pepper plant productivity and their associated fungal and bacterial
-communities.}  }
-
-
-
-\author{\Large Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2}\vspace{0.05in} \newline\normalsize\emph{\textsuperscript{1}Département de Sciences Biologiques, Institut de
-Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
-Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
-for Biodiversity Science, Montreal, Quebec, Canada}  }
-
-
-\date{}
-
-\usepackage{titlesec}
-
-\titleformat*{\section}{\normalsize\bfseries}
-\titleformat*{\subsection}{\normalsize\itshape}
-\titleformat*{\subsubsection}{\normalsize\itshape}
-\titleformat*{\paragraph}{\normalsize\itshape}
-\titleformat*{\subparagraph}{\normalsize\itshape}
-
-
-
-
-
-\newtheorem{hypothesis}{Hypothesis}
-\usepackage{setspace}
-
-\makeatletter
-\@ifpackageloaded{hyperref}{}{%
-\ifxetex
-  \PassOptionsToPackage{hyphens}{url}\usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \PassOptionsToPackage{hyphens}{url}\usepackage[unicode=true]{hyperref}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
 }
 
-\@ifpackageloaded{color}{
-    \PassOptionsToPackage{usenames,dvipsnames}{color}
-}{%
-    \usepackage[usenames,dvipsnames]{color}
-}
-\makeatother
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2} (\textsuperscript{1}Département de Sciences Biologiques, Institut de
-Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
-Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
-for Biodiversity Science, Montreal, Quebec, Canada)},
-             pdfkeywords = {Stella Marris, 16S, ITS, microbial diversity, Illumina MiSeq},  
-            pdftitle={\textbf{The effect of \emph{Ascophyllum nodosum} extracts on tomato and
+\setlength{\droptitle}{-2em}
+
+  \title{\textbf{The effect of \emph{Ascophyllum nodosum} extracts on tomato and
 pepper plant productivity and their associated fungal and bacterial
-communities.}},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
+communities.}}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{true}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{September 12, 2018}
 
 \usepackage[left]{lineno}
 \linenumbers
 
-
-% add tightlist ----------
-\providecommand{\tightlist}{%
-\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
 \begin{document}
-	
-% \pagenumbering{arabic}% resets `page` counter to 1 
-%
-% \maketitle
-
-{% \usefont{T1}{pnc}{m}{n}
-\setlength{\parindent}{0pt}
-\thispagestyle{plain}
-{\fontsize{18}{20}\selectfont\raggedright 
-\maketitle  % title \par  
-
-}
-
-{
-   \vskip 13.5pt\relax \normalsize\fontsize{11}{12} 
-\textbf{\authorfont Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2}} \hskip 15pt \emph{\small \textsuperscript{1}Département de Sciences Biologiques, Institut de
-Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
-Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
-for Biodiversity Science, Montreal, Quebec, Canada}   
-
-}
-
-}
-
-
-
-
-
-
-
-
+\maketitle
 \begin{abstract}
-
-    \hbox{\vrule height .2pt width 39.14pc}
-
-    \vskip 8.5pt % \small 
-
-\noindent The abstract will be written here
-
-
-\vskip 8.5pt \noindent \emph{Keywords}: Stella Marris, 16S, ITS, microbial diversity, Illumina MiSeq \par
-
-    \hbox{\vrule height .2pt width 39.14pc}
-
-
-
+The abstract will be written here
 \end{abstract}
 
-
-\vskip 6.5pt
-
-
-\noindent \doublespacing \newpage 
+\newpage 
 
 \section{INTRODUCTION}\label{introduction}
 
@@ -319,15 +230,16 @@ assigned using the Ribosomal Database Project (RDP) Naive Bayesian
 Classifier algorithm from Wang et al. (2007). Depending on support
 (minimum bootstrap support of 80), we assigned taxonomy from Kingdom to
 species. We used the silva database formatted for \texttt{dada2} to
-infer bacterial taxa Callahan (2018) We used the UNITE2017 fasta release
-(including singletons) to infer fungal taxa after formatting it to the
-\texttt{dada2} format using a custom \texttt{R} script. The pipeline was
-run on a multithreaded (48 CPUs) computer infrastructure provided by
-Westgrid (\url{https://www.westgrid.ca/support/systems/cedar}) and
-Compute Canada (www.computecanada.ca). Note that the pipeline was run
-separately for fungal-root, fungal-soil, bacteria-soil and bacteria-root
-samples given the markedly different type of amplicons, taxa and error
-models of each dataset. ~\\
+infer bacterial taxa Callahan (2018) We used the Community (2018) fasta
+release (including singletons) to infer fungal taxa after formatting it
+to the \texttt{dada2} format using a custom \texttt{R} script. The
+pipeline was run on a multithreaded (48 CPUs) computer infrastructure
+provided by Westgrid
+(\url{https://www.westgrid.ca/support/systems/cedar}) and Compute Canada
+(www.computecanada.ca). Note that the pipeline was run separately for
+fungal-root, fungal-soil, bacteria-soil and bacteria-root samples given
+the markedly different type of amplicons, taxa and error models of each
+dataset. ~\\
 \hspace*{0.333em}\\
 \emph{Statistical analyses - plant productivity}\\
 We tested for the effect of species (tomato vs pepper), fertilization
@@ -629,7 +541,10 @@ ASV107 (\emph{Santhobacteraceae}) were identified. ~\\
 \includegraphics{../figures/Figure7_candidateASVs.pdf}\\
 \textbf{Figure 7: Neighbor-Joining trees of candidates ASVs (fungi \&
 roots) associated with productivity measures} ~\\
-\hspace*{0.333em}\\
+\hspace*{0.333em}
+
+\emph{(look at mvpart package? mvpartwrapt MRT() function)}
+
 \newpage  
 
 \section{DISCUSSION}\label{discussion}
@@ -659,6 +574,11 @@ Caporaso JG., Kuczynski J., Stombaugh J., Bittinger K., Bushman FD.,
 Costello EK., Fierer N., Pena AG., Goodrich JK., Gordon JI., others.
 2010. QIIME allows analysis of high-throughput community sequencing
 data. \emph{Nature methods} 7:335.
+
+\hypertarget{ref-UNITE2017}{}
+Community U. 2018.UNITE general fasta release. version 01.12.2017.
+\emph{Available at}
+\emph{\url{https://files.plutof.ut.ee/doi/C8/E4/C8E4A8E6A7C4C00EACE3499C51E550744A259A98F8FE25993B1C7B9E7D2170B2.zip}}
 
 \hypertarget{ref-craigie2011seaweed}{}
 Craigie JS. 2011. Seaweed extract stimuli in plant science and
@@ -725,8 +645,4 @@ Wright ES. 2016. Using decipher v2. 0 to analyze big biological sequence
 data in r. \emph{R Journal} 8.
 
 
-
-
-%\newpage
-%\singlespacing 
 \end{document}

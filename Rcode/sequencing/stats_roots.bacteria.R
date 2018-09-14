@@ -31,7 +31,7 @@ for(i in 1:ncol(asv.filt))
 asv.filt.abundants = asv.filt[,asv.singletons>5]
 taxo.abundants = taxo[asv.singletons>5,]
 
-#what fraction of ASV do you got rid off
+#what fraction of ASV did you get rid off
 print(length(asv.singletons[asv.singletons<5])/length(asv.singletons))  
 
 #what percentage of reads did you keep
@@ -96,7 +96,7 @@ dev.off()
 asv.filt.abundants.norm.FAMILY = as.data.frame(asv.filt.abundants.norm.barplot) %>% group_by(taxo.abundants$Family) %>% summarise_all(sum)
 
 asv.filt.abundants.norm.FAMILY[11,1] = "chloroplast*"
-asv.filt.abundants.norm.FAMILY[4,1] = "Alphaproteobacteria (Class)*"
+asv.filt.abundants.norm.FAMILY[4,1] = "mitochondria*"
 
 #top10
 temp = asv.filt.abundants.norm.FAMILY[order(rowSums(asv.filt.abundants.norm.FAMILY[,2:5]),decreasing = T),]
