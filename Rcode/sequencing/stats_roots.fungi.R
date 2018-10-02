@@ -104,7 +104,7 @@ barplot.data$taxonomy = unlist(rep((asv.filt.abundants.norm.FAMILY.top10[,1]),nc
 
 ###ggplot ----
 dev.new()
-p=ggplot() + labs(title = "Roots - fungi",fill = "Taxonomy (family)") +
+p=ggplot() + labs(title = "Roots - fungi",fill = "Taxonomy (family)",y ="Relative abundance of ASVs") +
   theme_bw() + 
   theme(plot.title = element_text(hjust = 0.5, size=14, face="bold")) +
   geom_bar(aes(y = fraction, x = treatment, fill = taxonomy),
@@ -237,6 +237,9 @@ for(species in c("Tomato","Pepper"))
   productivity.norm.keep.species = productivity.norm.keep[productivity.norm.keep[,1] == species,]
   asv.filt.abundants.norm.species = asv.filt.abundants.norm[productivity.norm.keep[,1] == species,]
   
+  #keep only the non-zeros...
+  asv.filt.abundants.norm.species = asv.filt.abundants.norm.species[,colSums(asv.filt.abundants.norm.species)!=0]
+  
   #hellinger transform
   asv.filt.abundants.norm.species.hel = decostand(asv.filt.abundants.norm.species, "hel")
   
@@ -258,8 +261,7 @@ for(species in c("Tomato","Pepper"))
   text(rda.plot$sites,labels = rownames(rda.plot$sites),cex = 0.7, col = col,font = 2,adj = 0.8)
   
   #Candidate ASVs (top10?) closest to arrowheads (excluding avg fruit weigth)
-  if(species == "Tomato") factors = c(1,3,4)     #remove avg. fruit weight for tomato
-  if(species == "Pepper") factors = c(1:4)     #keep avg. fruit weight for pepper
+  factors = c(1,3,4)     #remove avg. fruit weight for tomato
   arrow_x = mean(rda.plot2$biplot[factors,1]*attr(rda.plot2$biplot,"arrow.mul"))
   arrow_y = mean(rda.plot2$biplot[factors,2]*attr(rda.plot2$biplot,"arrow.mul"))
   
@@ -294,27 +296,16 @@ write.table(candidate.ASV.taxo,"results/candidate.ASV.fr.txt",row.names = T, col
 
 
 ###sandbox -----
-if(1==2)
+#this is essentially to show that the aproach above (taking the top10 candidates) makes sense. As you get the same pattern, with a cor.test approach on the productivity variables....
+if(1==2){
+cortest = data.frame(colnames(asv.filt.abundants.norm.species.hel) ,stringsAsFactors = F)
+colnames(cortest)[1] = "asv"
+cortest$pvalue = 0
+cortest$cor = 0
+for( i in 1:ncol(asv.filt.abundants.norm.species.hel))
 {
-  
-
-  
-  
-  
-  
-  colnames(asv.filt.abundants.norm.FAMILY)[1] = "taxo"
-  barplot.data = as.data.frame(asv.filt.abundants.norm.FAMILY,row.names = taxo.abundants$Family)
-  barplot.data = barplot.data[order(rowSums(barplot.data[,2:5]),decreasing = T),]
-  
-  barplot.data.t = t(barplot.data[,2:5])
-  
-  colnames(barplot.data.t) = barplot.data[,1]
-  barplot.data.t = t(barplot.data[,2:5])
-  
-  barplot.data.t.df = as.data.frame(unlist(c(barplot.data[,2:5])))
-  colnames(barplot.data.t.df)[1] = "fraction"
-  barplot.data.t.df$treat =c(rep("fert",13),rep("nofert",13),rep("tomato",13),rep("pepper",13))
-  barplot.data.t.df$sps = rep(barplot.data[,1],4)
-  
-  
-  }
+  cortest$pvalue[i] = cor.test(asv.filt.abundants.norm.species.hel[,i],productivity.norm.keep.species[,10])$p.value
+  cortest$cor[i] = cor.test(asv.filt.abundants.norm.species.hel[,i],productivity.norm.keep.species[,10])$estimate
+}
+head(cortest[order(cortest$cor,decreasing = T),],10)
+}

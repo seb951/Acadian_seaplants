@@ -7,7 +7,7 @@ library(pals)
 library(ape)
 library(dplyr)
 library(ggplot2)
-
+source("/Library/Frameworks/R.framework/Versions/3.4/Resources/library/Legendre_numericalecology/anova.2way.R")
 #load ASVS and taxonomy information ----
 dev.new()
 asv = read.table("results/asv/asv.bacteria_root",row.names = 1, sep = " ",header =TRUE,stringsAsFactors = F)
@@ -111,7 +111,7 @@ barplot.data$taxonomy = unlist(rep((asv.filt.abundants.norm.FAMILY.top10[,1]),nc
 
 ###ggplot ----
 dev.new()
-p = ggplot() + labs(title = "Roots - bacteria",fill = "Taxonomy (Family)") +
+p = ggplot() + labs(title = "Roots - bacteria",fill = "Taxonomy (Family)",y ="Relative abundance of ASVs") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5, size=14, face="bold")) +
   geom_bar(aes(y = fraction, x = treatment, fill = taxonomy),
@@ -263,8 +263,7 @@ for(species in c("Tomato","Pepper"))
   text(rda.plot$sites,labels = rownames(rda.plot$sites),cex = 0.7, col = col,font = 2,adj = 0.8)
   
   #Candidate ASVs (top10?) closest to arrowheads (excluding avg fruit weigth)
-  if(species == "Tomato") factors = c(1,3,4)     #remove avg. fruit weight for tomato
-  if(species == "Pepper") factors = c(1:4)     #keep avg. fruit weight for pepper
+  factors = c(1,3,4)     #remove avg. fruit weight for tomato
   arrow_x = mean(rda.plot2$biplot[factors,1]*attr(rda.plot2$biplot,"arrow.mul"))
   arrow_y = mean(rda.plot2$biplot[factors,2]*attr(rda.plot2$biplot,"arrow.mul"))
   

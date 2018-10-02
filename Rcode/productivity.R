@@ -2,7 +2,7 @@
 
 setwd("/Users/jerry/Documents/CSBQ/hijri/Acadian_seaplants/")
 library(nlme)
-
+source("/Library/Frameworks/R.framework/Versions/3.4/Resources/library/Legendre_numericalecology/anova.2way.R")
 
 ####setting things up -----
 productivity = read.table("results/plant_productivity_data.tsv", header = T, stringsAsFactors = F,sep = "\t")
@@ -10,48 +10,54 @@ productivity.norm = productivity
 
 
 #we do a sqrt transformation on all variables to help in normalizing (it helps in all cases, but it's not perfect. Some residuals are still not normally distributed. But the effect is so strong that we don't care too much.)
-productivity.norm$fruit.number = sqrt(productivity$fruit.number)
-productivity.norm$fruits.weight = sqrt(productivity$fruits.weight)
-productivity.norm$average.fruit.weight = sqrt(productivity$average.fruit.weight)
-productivity.norm$shoots.fresh.weight = sqrt(productivity$shoots.fresh.weight)
-productivity.norm$shoots.dry.weight = sqrt(productivity$shoots.dry.weight)
-productivity.norm$roots.fresh.weight = sqrt(productivity$roots.fresh.weight)
-productivity.norm$roots.dry.weight = sqrt(productivity$roots.dry.weight)
 #####
-
-
-#
+#NO NORMALITY
+productivity.norm$fruit.number = sqrt(productivity$fruit.number)
 lmm.fruit.number <- lme(fruit.number~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.fruit.number)
-shapiro.test(lmm.fruit.number$residuals[,1])
+shapiro.test(lmm.fruit.number$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
-#
+    #So we do an ANOVA with premutation... results are the same.
+anova.2way(fruit.number~treatment*plant,data = productivity.norm,nperm = 999,model = 1)
+
+
+#NO NORMALITY
+productivity.norm$average.fruit.weight = sqrt(productivity$average.fruit.weight)
 lmm.average.fruit.weight <- lme(average.fruit.weight~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.average.fruit.weight)
-shapiro.test(lmm.average.fruit.weight$residuals[,1])
+shapiro.test(lmm.average.fruit.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
           productivity.norm.p = productivity.norm[productivity.norm[,1]== "Pepper",] #test only peppers
           lmm.average.fruit.weight.p <- lme(average.fruit.weight~treatment,data = productivity.norm.p,random = ~1|block/replicate, method = "REML")
           anova(lmm.average.fruit.weight.p)
-#
+
+          #So we do an ANOVA with premutation... results are the same.
+          anova.2way(average.fruit.weight~treatment*plant,data = productivity.norm,nperm = 999,model = 1)
+          
+          
+#NORMALITY LOG
+productivity.norm$shoots.fresh.weight = log(productivity$shoots.fresh.weight)
 lmm.shoots.fresh.weight <- lme(shoots.fresh.weight~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.shoots.fresh.weight)
-shapiro.test(lmm.shoots.fresh.weight$residuals[,1])
+shapiro.test(lmm.shoots.fresh.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
-#
+#NORMALITY SQRT
+productivity.norm$shoots.dry.weight = sqrt(productivity$shoots.dry.weight)
 lmm.shoots.dry.weight <- lme(shoots.dry.weight~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.shoots.dry.weight)
-shapiro.test(lmm.shoots.dry.weight$residuals[,1])
+shapiro.test(lmm.shoots.dry.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
-#
+#NORMALITY LOG
+productivity.norm$roots.fresh.weight = sqrt(productivity$roots.fresh.weight)
 lmm.roots.fresh.weight <- lme(roots.fresh.weight~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.roots.fresh.weight)
-shapiro.test(lmm.roots.fresh.weight$residuals[,1])
+shapiro.test(lmm.roots.fresh.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
-#
+#NORMALITY SQRT
+productivity.norm$roots.dry.weight = sqrt(productivity$roots.dry.weight)
 lmm.roots.dry.weight <- lme(roots.dry.weight~treatment*plant,data = productivity.norm,random = ~1|block/replicate, method = "REML")
 anova(lmm.roots.dry.weight)
-shapiro.test(lmm.roots.dry.weight$residuals[,1])
+shapiro.test(lmm.roots.dry.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
 #boxplot
 #boxplot it?
