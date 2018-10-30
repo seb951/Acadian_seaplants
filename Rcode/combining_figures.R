@@ -6,7 +6,7 @@ setwd("/Users/jerry/Documents/CSBQ/hijri/Acadian_seaplants")
 library(multipanelfigure)
 library(magrittr)
 library(dplyr)
-library(DECIPHER)
+library(DECIPHER) #this is a bioconductor packages
 library(phangorn)
 library(phyloseq)
 
@@ -63,10 +63,15 @@ for(i in 1:80)
   {
     candidate.ASV.all$names_collapse[i]=paste(candidate.ASV.all[i,c(1,6:11)],collapse = ";")
     candidate.ASV.all$names_collapse[i]=gsub(";NA","",candidate.ASV.all$names_collapse[i],ignore.case=T)
+    
+    #how far along the taxo did you get...    
+    len = length(gregexpr(";",candidate.ASV.all$names_collapse[i])[[1]])
+    len.exact = paste("(",colnames(candidate.ASV.all)[5+len],")",sep= "")
+    
     #get only the ASV + last part of the taxonomy
     temp_taxo=strsplit(candidate.ASV.all$names_collapse[i],split = ";")[[1]]
     if(length(temp_taxo)==1) candidate.ASV.all$names_collapse[i] = temp_taxo
-    if(length(temp_taxo)>1) candidate.ASV.all$names_collapse[i] = paste(temp_taxo[1],temp_taxo[length(temp_taxo)],collapse = ";")
+    if(length(temp_taxo)>1) candidate.ASV.all$names_collapse[i] = paste(temp_taxo[1],temp_taxo[length(temp_taxo)],len.exact,collapse = ";")
     }
 
 #plot trees
@@ -98,8 +103,8 @@ for(taxa in c("Bacteria","Fungi"))
   #plot.phylo
   dev.new()
   plot.phylo(treeNJ,cex = 0.5,tip.color = tip.color[candidate.ASV.all$Kingdom==taxa],font = 2,main = taxa,xpd = T)
-  if(taxa == "Fungi") legend(max(treeNJ$edge.length),40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"))
-  if(taxa == "Bacteria") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "white")
+  if(taxa == "Fungi") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFF99")
+  if(taxa == "Bacteria") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFF99")
   dev.print(device=pdf, paste("figures/",tolower(taxa),"/Figure7_",tolower(taxa),"_tree.pdf",sep = ""), onefile=FALSE)
   dev.off()
   }
@@ -113,13 +118,17 @@ figure7 %>% save_multi_panel_figure(filename = "figures/Figure7_candidateASVs.pd
 
 #Figure 7 - candidates
 #fungi root
-candidates = NULL
-candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV70",])
-candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV191",])
+#candidates = NULL
+#candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV70",])
+#candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV191",])
 #fungi - soil
-candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV243",])
-candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV264",])
-candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV252",])
+#candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV243",])
+#candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV264",])
+#candidates = rbind(candidates,taxo.abundants[colnames(asv.filt.abundants.norm) == "ASV252",])
 
+#fungi - soil
+taxo[c(132,153),]
 
-
+#fungi - root
+taxo[c(17,19),]
+#

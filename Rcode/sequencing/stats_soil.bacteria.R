@@ -124,19 +124,19 @@ dev.off()
 
 ###alpha diversity ----
 #prepare a matrix with alpha diversity as "invsimpson" index
-asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson")^(1/2)),design.keep)
+asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson")^(1/1)),design.keep)
 colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (bloc/replicate are random, none of the interactions are significant)
 lmm.alpha <- lme(alpha~fertilization+species+planted,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
 anova(lmm.alpha)
-#numDF denDF   F-value p-value
-#(Intercept)       1   165 2955.4037  <.0001
-#fertilization     1   165   46.2534  <.0001
-#species           1   165   10.2171  0.0017
-#planted           1   165   48.7620  <.0001
+#              numDF denDF   F-value p-value
+#(Intercept)       1   165 11971.730  <.0001
+#fertilization     1   165    17.131  0.0001
+#species           1   165     1.891  0.1709
+#planted           1   165   138.925  <.0001
 
-shapiro.test(lmm.alpha$residuals[,1]) #fixed effects are  normaly distributed with a sqrt
+shapiro.test(lmm.alpha$residuals[,1]) #fixed effects are  normaly distributed WITHOUT A sqrt
 #W = 0.99111, p-value = 0.2834s
 
 #boxplot it
@@ -172,16 +172,16 @@ write.table(permanova$aov.tab,"results/asv/permanova.soil_bacteria")
 
 
 
-#                                 Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-#fertilization                   1     1.467 1.46685  6.8866 0.03202 0.0001 ***
-#  planted                         1     2.769 2.76868 12.9984 0.06043 0.0001 ***
-#  species                         1     0.496 0.49608  2.3290 0.01083 0.0039 ** 
-#  fertilization:planted           1     0.791 0.79113  3.7142 0.01727 0.0002 ***
-#  fertilization:species           1     0.537 0.53738  2.5229 0.01173 0.0020 ** 
-#  planted:species                 1     0.271 0.27101  1.2723 0.00592 0.1789    
-#fertilization:planted:species   1     0.292 0.29217  1.3717 0.00638 0.1190    
-#Residuals                     184    39.192 0.21300         0.85544           
-#Total                         191    45.816                 1.00000           
+#                               Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F) comparison
+#fertilization                   1    0.9382  0.9382  8.9626 0.03667 0.0001           
+#planted                         1    3.2819  3.2819 31.3526 0.12829 0.0001           
+#species                         1    0.4054  0.4054  3.8727 0.01585 0.0003           
+#fertilization:planted           1    0.5476  0.5476  5.2314 0.02141 0.0001           
+#fertilization:species           1    0.6592  0.6592  6.2975 0.02577 0.0001           
+#planted:species                 1    0.2882  0.2882  2.7536 0.01127 0.0041           
+#fertilization:planted:species   1    0.2005  0.2005  1.9149 0.00784 0.0355           
+#Residuals                     184   19.2607  0.1047         0.75291                  
+#Total                         191   25.5817                 1.00000         
 #---
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 

@@ -307,30 +307,32 @@ accurate sample inference from amplicon data with single-nucleotide
 resolution in an open source (R) environments. Unlike the Operational
 Taxonomic Unit (OTU) approach (e.g. Schloss et al. (2009), Caporaso et
 al. (2010)), ASV are not treated as cluster of sequences defined with an
-\emph{ad hoc} sequence similarity threshold, thus allowing sequences and
+\emph{ad hoc} sequence similarity threshold. Instead, after sequences
+are quality trimmed and error-corrected, \texttt{dada2} reveals the
+unique members of the sequenced community, thus allowing sequences and
 abundance counts to be compared among studies Callahan et al. (2016).\\
 \hspace*{0.333em}\\
-First, sequences were trimmed following strict quality thresholds (see
-parameter details in the accompanying \texttt{R} scripts). Following
-this, we applied the error model algorithm of \texttt{dada2} which
-incorporates quality information after filtering, unlike other OTU based
-methods. Then dereplication, sample inference, merging of paired end
-reads and removal of chimera reads were performed in order to obtain a
-sequence (ASVs) table of abundance per sample. Taxonomy was also
-assigned using the Ribosomal Database Project (RDP) Naive Bayesian
-Classifier algorithm from Wang et al. (2007). Depending on support
-(minimum bootstrap support of 80), we assigned taxonomy from Kingdom to
-species. We used the silva database formatted for \texttt{dada2} to
-infer bacterial taxa Callahan (2018). We used the Community (2018) fasta
-release (including singletons) to infer fungal taxa after formatting it
-to the \texttt{dada2} format using a custom \texttt{R} script. The
-pipeline was run on a multithreaded (48 CPUs) computer infrastructure
-provided by Westgrid
-(\url{https://www.westgrid.ca/support/systems/cedar}) and Compute Canada
-(www.computecanada.ca). Note that the pipeline was run separately for
-fungal-root, fungal-soil, bacteria-soil and bacteria-root samples given
-the markedly different type of amplicons, taxa and error models of each
-dataset. ~\\
+First, sequences were trimmed following strict quality thresholds
+(removing primers and low quality nucleotides, see parameter details in
+the accompanying \texttt{R} scripts). Following this, we applied the
+error model algorithm of \texttt{dada2} which incorporates quality
+information after filtering, unlike other OTU based methods. Then
+dereplication, sample inference, merging of paired end reads and removal
+of chimera reads were performed in order to obtain a sequence (ASVs)
+table of abundance per sample. Taxonomy was also assigned using the
+Ribosomal Database Project (RDP) Naive Bayesian Classifier algorithm
+from Wang et al. (2007). Depending on support (minimum bootstrap support
+of 80), we assigned taxonomy from Kingdom to species. We used the silva
+database formatted for \texttt{dada2} to infer bacterial taxa Callahan
+(2018). We used the Community (2018) fasta release (including
+singletons) to infer fungal taxa after formatting it to the
+\texttt{dada2} format using a custom \texttt{R} script. The pipeline was
+run on a multithreaded (48 CPUs) computer infrastructure provided by
+Westgrid (\url{https://www.westgrid.ca/support/systems/cedar}) and
+Compute Canada (www.computecanada.ca). Note that the pipeline was run
+separately for fungal-root, fungal-soil, bacteria-soil and bacteria-root
+samples given the markedly different type of amplicons, taxa and error
+models of each dataset. ~\\
 \hspace*{0.333em}\\
 \emph{Statistical analyses - plant productivity}\\
 We tested for the effect of species (tomato vs pepper), fertilization
@@ -490,7 +492,7 @@ weight was significantly higher in the fertilized pepper plants
 \hspace*{0.333em}\\
 \hspace*{0.333em}\\
 \emph{Sequencing}\\
-A total of 2.7 million paired-end raw reads were obtained for all
+{A total of 2.7 million paired-end raw reads were obtained for all
 samples combined (976,000 for fungi-soil, 920,000 for fungi-root,
 309,000 for bacteria-soil and 535,000 for bacteria-root, Table 2). Note
 that sequencing samples were analysed separately for fungal-soil,
@@ -510,9 +512,9 @@ those were unique to one of a few samples (total number of 6,178
 fungal-soil, 930 fungal-root, 10,120 bacterial-soil and 3,143
 bacterial-roots ASVs). After quality filtering ASVs that were found in
 fewer than 10\% of the samples, we retained 418, 169, 206 and 250 ASVs
-and which comprised 91\%, 88\%, 50\% and 85\% of all reads in the
+and which comprised 91\%, 88\%, 50\% and 89\% of all reads in the
 fungal-soil, fungal-root, bacterial-soil and bacterial-root samples,
-respectively.\\
+respectively.}\\
 \hspace*{0.333em}\\
 \hspace*{0.333em}
 
@@ -606,17 +608,17 @@ tomato and pepper plants.
 & fungi-soil & fungi-root & bacteria-soil & bacteria-root\tabularnewline
 \midrule
 \endhead
-fertilization & 0.02 (4e-04) & 0.04 (0.0013) & 0.03 (1e-04) & 0.01
-(0.0705)\tabularnewline
-planted & 0.15 (1e-04) & NA & 0.06 (1e-04) & NA\tabularnewline
-species & 0.02 (2e-04) & 0.2 (1e-04) & 0.01 (0.0032) & 0.42
+fertilization & 0.02 (2e-04) & 0.08 (1e-04) & 0.04 (1e-04) & 0.07
 (1e-04)\tabularnewline
-fertilization:planted & 0.01 (0.008) & NA & 0.02 (1e-04) &
+planted & 0.21 (1e-04) & NA & 0.13 (1e-04) & NA\tabularnewline
+species & 0.02 (1e-04) & 0.26 (1e-04) & 0.02 (3e-04) & 0.52
+(1e-04)\tabularnewline
+fertilization:planted & 0.01 (0.003) & NA & 0.02 (1e-04) &
 NA\tabularnewline
-fertilization:species & 0.01 (0.0705) & 0.03 (0.0094) & 0.01 (0.002) &
-0.01 (0.0973)\tabularnewline
-planted:species & 0.01 (0.1597) & NA & 0.01 (0.1767) & NA\tabularnewline
-fertilization:planted:species & 0 (0.7956) & NA & 0.01 (0.1179) &
+fertilization:species & 0.01 (0.006) & 0.04 (0.002) & 0.03 (1e-04) &
+0.05 (2e-04)\tabularnewline
+planted:species & 0.01 (0.09) & NA & 0.01 (0.004) & NA\tabularnewline
+fertilization:planted:species & 0.01 (0.16) & NA & 0.01 (0.04) &
 NA\tabularnewline
 \bottomrule
 \end{longtable}
@@ -689,13 +691,13 @@ roots) associated with productivity measures} ~\\
 tomato were fertilized with hen manure as well).\\
 • A few words about the goal of the sequencing: very broad approach
 looking at lots of factors (fertilization, species, planting root, soil,
-fungal, bacterial). • A few words about the \emph{dada2} approach and
-its advantages (it's reproducible, open \& R based. It identifies unique
-(non-clustered) ASVs which can be compared among species) \&
-disadvantages (essentially, the main disadvantage is that it identifies
-non-clustered ASVs, which means that most ASVs are unique, and not found
-anywhere else, which makes it hard to compare: see \emph{Sequencing}
-paragraph in results).\\
+fungal, bacterial).\\
+• A few words about the \emph{dada2} approach and its advantages (it's
+reproducible, open \& R based. It identifies unique (non-clustered) ASVs
+which can be compared among species) \& disadvantages (essentially, the
+main disadvantage is that it identifies non-clustered ASVs, which means
+that most ASVs are unique, and not found anywhere else, which makes it
+hard to compare: see \emph{Sequencing} paragraph in results).\\
 • Also, talk about advantages / disadvantages of the RDP bayesian
 classifier approach to taxonomy rather than a BLAST approach (a BLAST
 approach will always give you a result even if this result is false, an
@@ -708,7 +710,8 @@ differences in species composition among sites (beta diversity) • Talk
 about the fact in the roots, we most likely sequenced the plant itself,
 rather than the bacteria.\\
 • Discuss some of the candidate ASVs identified based on the ordinations
-and Figure 7. • Follow-up work: ?
+and Figure 7.\\
+• Follow-up work: ?
 
 \newpage  
 

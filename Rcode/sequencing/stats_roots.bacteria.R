@@ -95,12 +95,12 @@ dev.off()
 #summarize with dplyr by family
 asv.filt.abundants.norm.FAMILY = as.data.frame(asv.filt.abundants.norm.barplot) %>% group_by(taxo.abundants$Family) %>% summarise_all(sum)
 
-asv.filt.abundants.norm.FAMILY[11,1] = "chloroplast*"
-asv.filt.abundants.norm.FAMILY[4,1] = "mitochondria*"
+asv.filt.abundants.norm.FAMILY[47,1] = "chloroplast*"
+asv.filt.abundants.norm.FAMILY[26,1] = "mitochondria*"
 
 #top10
 temp = asv.filt.abundants.norm.FAMILY[order(rowSums(asv.filt.abundants.norm.FAMILY[,2:5]),decreasing = T),]
-asv.filt.abundants.norm.FAMILY.top10 = temp
+asv.filt.abundants.norm.FAMILY.top10 = temp[1:10,]
 barplot.data = as.data.frame(unlist(asv.filt.abundants.norm.FAMILY.top10[,2:5]))
 colnames(barplot.data)[1] = "fraction"
 n = nrow(asv.filt.abundants.norm.FAMILY.top10)
@@ -124,21 +124,21 @@ dev.off()
 
 ###alpha diversity ----
 #prepare a matrix with alpha diversity as "invsimpson" index
-asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson"))^(1/2),design.keep)
+asv.filt.abundants.norm.alpha = cbind(vegan::diversity(asv.filt.abundants.norm, index= "invsimpson")^(1/1),design.keep)
 colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (block & replicate are random, replicate is nested in bloc)
 lmm.alpha.interactions <- lme(alpha~fertilization*species,data = asv.filt.abundants.norm.alpha,random = ~1|bloc/replicate, method = "REML")
 anova(lmm.alpha.interactions) #interactions
 
-#numDF denDF  F-value p-value
-#(Intercept)               1    67 43885.41  <.0001
-#fertilization             1    67    16.48  0.0001
-#species                   1    67   523.42  <.0001
-#fertilization:species     1    67     9.53  0.0029
+#                     numDF denDF  F-value p-value
+#(Intercept)               1    68 481.0934  <.0001
+#fertilization             1    68  17.2742   1e-04
+#species                   1    68 359.6885  <.0001
+#fertilization:species     1    68  17.5512   1e-04
 
 shapiro.test(lmm.alpha.interactions$residuals) #normaly distributed (otherwise can do a log or sqrt?)
-#W = 0.90552, p-value = 2.638e-12
+#W = 0.91509, p-value = 1.251e-11
 
 #boxplot it?
 dev.new(width=7, height=7,units = "cm",noRStudioGD = TRUE)
@@ -170,12 +170,11 @@ permanova$aov.tab$comparison = "root_bacteria"
 write.table(permanova$aov.tab,"results/asv/permanova.root_bacteria")
 
 #Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-#fertilization          1    0.9547  0.9547  4.3146 0.03601 0.0010 ***
-#  species                1    4.4228  4.4228 19.9873 0.16682 0.0001 ***
-#  fertilization:species  1    0.7775  0.7775  3.5137 0.02933 0.0045 ** 
-#  Residuals             92   20.3579  0.2213         0.76785           
-#   Total                 95   26.5130                 1.00000           
-#---
+#fertilization          1    0.8420  0.8420  16.832 0.06760  1e-04           
+#species                1    6.4947  6.4947 129.838 0.52147  1e-04           
+#fertilization:species  1    0.5659  0.5659  11.313 0.04544  2e-04           
+#Residuals             91    4.5520  0.0500         0.36549                  
+#Total                 94   12.4546                 1.00000 
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 ####PcoA: good to illustrate the community structure----

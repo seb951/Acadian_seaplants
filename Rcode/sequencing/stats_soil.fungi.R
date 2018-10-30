@@ -128,7 +128,7 @@ dev.off()
 
 ###alpha diversity ----
 #prepare a matrix with alpha diversity as "invsimpson" index
-asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson"))^(1/2),design.keep)
+asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson"))^(1/1),design.keep)
 colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (block & replicate are random, replicate is nested in bloc)
@@ -136,13 +136,14 @@ lmm.alpha.interactions <- lme(alpha~fertilization*planted+species,data = asv.fil
 anova(lmm.alpha.interactions)
 
 #numDF denDF   F-value p-value
-#(Intercept)       1   162 1144.0785  <.0001
-#fertilization     1   162   13.7462  0.0003
-#species           1   162    0.0921  0.7619
-#planted           1   162   39.4048  <.0001
+#(Intercept)               1   161 6134.551  <.0001
+#fertilization             1   161    0.165  0.6853
+#planted                   1   161    8.983  0.0032
+#species                   1   161   13.593  0.0003
+#fertilization:planted     1   161    2.798  0.0963
 
-shapiro.test(lmm.alpha.interactions$residuals[,1]) #normaly distributed (otherwise can do a log or sqrt?)
-#W = 0.98856, p-value = 0.114
+shapiro.test(lmm.alpha.interactions$residuals[,1]) #ALMOST normaly distributed (otherwise can do a log or sqrt?)
+#W = 0.98856, p-value = 0.009121
 
 #boxplot it
 dev.new(width=9, height=7,units = "cm",noRStudioGD = TRUE)
@@ -176,12 +177,15 @@ permanova$aov.tab$comparison = "soil_fungi"
 write.table(permanova$aov.tab,"results/asv/permanova.soil_fungi")
 
 #                       Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-#fertilization           1    0.4908  0.4908   4.318 0.01871 0.0005 ***
-#planted                 1    4.0363  4.0363  35.511 0.15389 0.0001 ***
-#species                 1    0.4926  0.4926   4.334 0.01878 0.0005 ***
-#fertilization:planted   1    0.2956  0.2956   2.601 0.01127 0.0089 ** 
-#Residuals             184   20.9138  0.1137         0.79735           
-#Total                 188   26.2291                 1.00000 
+#fertilization                   1    0.3632 0.36325   6.237 0.02434 0.0002           
+#planted                         1    3.0661 3.06614  52.646 0.20541 0.0001           
+#species                         1    0.3620 0.36204   6.216 0.02425 0.0001           
+#fertilization:planted           1    0.2235 0.22351   3.838 0.01497 0.0034           
+#fertilization:species           1    0.1899 0.18989   3.260 0.01272 0.0064           
+#planted:species                 1    0.0996 0.09961   1.710 0.00667 0.0874           
+#fertilization:planted:species   1    0.0809 0.08088   1.389 0.00542 0.1612           
+#Residuals                     181   10.5416 0.05824         0.70621                  
+#Total                         188   14.9269                 1.00000 
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 ####PcoA: good to illustrate the community structure----
@@ -288,6 +292,7 @@ for(species in c("Tomato","Pepper"))
   dev.print(device=pdf, paste("figures/fungi/Figure6fs_RDA_",species,".pdf",sep = ""), onefile=FALSE)
   dev.off()
 }
+
 
 #candidates with taxonomy
 candidate.ASV = cbind(rownames(candidate.ASV),candidate.ASV)

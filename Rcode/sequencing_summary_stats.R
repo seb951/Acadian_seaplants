@@ -3,30 +3,24 @@
 
 setwd("/Users/jerry/Documents/CSBQ/hijri/Acadian_seaplants/results") 
 
-
-system("awk 'NR==614,NR==709' slurm-10859814.out >ss")
-
-system("awk 'NR==1287,NR==1478' slurm-10859814.out >>ss")
-
-system("awk 'NR==1972,NR==2067' slurm-10859814.out >>ss")
-
-system("awk 'NR==3164,NR==3353' slurm-10859814.out >>ss")
-
-
 library(dplyr)
 
 #getting summary data & clean it up
-summary.stats = read.table("ss",header = T,sep = "",stringsAsFactors = F)
+summary.stats.fungi_root = read.table("asv/summary.stats.fungi_root",header = T,sep = "",stringsAsFactors = F)
+summary.stats.bacteria_root = read.table("asv/summary.stats.bacteria_root",header = T,sep = "",stringsAsFactors = F)
+summary.stats.bacteria_soil = read.table("asv/summary.stats.bacteria_soil",header = T,sep = "",stringsAsFactors = F)
+summary.stats.fungi_soil = read.table("asv/summary.stats.fungi_soil",header = T,sep = "",stringsAsFactors = F)
 
 #summary stat it:
-
+summary.stats = rbind(summary.stats.bacteria_root,summary.stats.bacteria_soil,summary.stats.fungi_root,summary.stats.fungi_soil)
 summary.stats$treatment =  c(rep("bacteria_root",95),rep("bacteria_soil",192),
-                        rep("fungi_root",96),rep("fungi_soil",190))
+                        rep("fungi_root",96),rep("fungi_soil",192))
 
 #
 summary.table = summary.stats %>% group_by(treatment) %>% summarise(Nb_samples = n(),
 Nb_seq_sumX10e3 = round(sum(Input)/10000),Nb_seq_mean = round(mean(Input)),Nb_seq_mean_filtered = round(mean(Filter)),
-Nb_seq_mean_filt_merged = round(mean(Merge)),Nb_seq_mean_filt_merg_non_chimeras = round(mean(Non.chim)),ASV_persample = round(mean(ASV.sample)))
+Nb_seq_mean_filt_merged = round(mean(Merge)),Nb_seq_mean_filt_merg_non_chimeras = round(mean(Non.chim)),
+ASV_persample = round(mean(X.ASV.sample)))
 
 summary.table$ASV_sum = 0 
 summary.table$Nb_samples_trimmed = 0

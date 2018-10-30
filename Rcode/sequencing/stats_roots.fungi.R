@@ -61,9 +61,9 @@ lmm1 <- lme(ASV1~fertilization+species,data = ASV1,random = ~1|bloc/replicate, m
 anova(lmm1)
 
 #               numDF denDF  F-value p-value
-#(Intercept)       1    70 40.69517  <.0001
-#fertilization     1    70  1.41262  0.2386
-#species           1    70  3.18452  0.0787
+#(Intercept)       1    55 596.9096  <.0001
+#fertilization     1    55   4.8193  0.0324
+#species           1    55  12.3121  0.0009
 
 ###barplots of all ASVs ----
 ###to look at diversity among fertilization, soil/roots, planted, species----
@@ -116,7 +116,7 @@ dev.off()
 
 ###alpha diversity ----
 #prepare a matrix with alpha diversity as "invsimpson" index
-asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson"))^(1/3),design.keep)
+asv.filt.abundants.norm.alpha = cbind((vegan::diversity(asv.filt.abundants.norm, index= "invsimpson"))^(1/2),design.keep)
 colnames(asv.filt.abundants.norm.alpha)[1] = "alpha"
 
 #linear mixed effect model on alpha diversity (block & replicate are random, replicate is nested in bloc)
@@ -124,13 +124,13 @@ lmm.alpha.interactions <- lme(alpha~fertilization*species,data = asv.filt.abunda
 anova(lmm.alpha.interactions)
 
 #                       numDF denDF   F-value p-value
-#(Intercept)               1    56 2049.2903  <.0001
-#fertilization             1    56   13.5670   5e-04
-#species                   1    56   74.3189  <.0001
-#fertilization:species     1    56    9.6546   3e-03
+#(Intercept)               1    54 729.5858  <.0001
+#fertilization             1    54  10.0908  0.0025
+#species                   1    54   4.4958  0.0386
+#fertilization:species     1    54   0.3433  0.5604
 
-shapiro.test(lmm.alpha.interactions$residuals[,1]) #normaly distributed (otherwise can do a log or sqrt?)
-#W = 0.97665, p-value = 0.0842
+shapiro.test(lmm.alpha.interactions$residuals[,1]) #normaly distributed SQUARE ROOT
+#W = 0.9427, p-value = 0.001243
 
 #boxplot it?
 #boxplot it
@@ -164,11 +164,11 @@ write.table(permanova$aov.tab,"results/asv/permanova.root_fungi")
 
 
 #Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-#fertilization          1    0.9547  0.9547  4.3146 0.03601 0.0010 ***
-#  species                1    4.4228  4.4228 19.9873 0.16682 0.0001 ***
-#  fertilization:species  1    0.7775  0.7775  3.5137 0.02933 0.0045 ** 
-#  Residuals             92   20.3579  0.2213         0.76785           
-#   Total                 95   26.5130                 1.00000           
+#fertilization          1    0.8643 0.86429  10.345 0.08261 0.0001           
+#species                1    2.7476 2.74764  32.886 0.26264 0.0001           
+#fertilization:species  1    0.4165 0.41646   4.985 0.03981 0.0015           
+#Residuals             77    6.4333 0.08355         0.61494                  
+#Total                 80   10.4617                 1.00000          
 #---
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
