@@ -57,8 +57,7 @@ communities.}  }
 
 
 \author{\Large Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2}\vspace{0.05in} \newline\normalsize\emph{\textsuperscript{1}Département de Sciences Biologiques, Institut de
+Masse\textsuperscript{1,2}, Mohamed Hijri\textsuperscript{1,2}\vspace{0.05in} \newline\normalsize\emph{\textsuperscript{1}Département de Sciences Biologiques, Institut de
 Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
 Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
 for Biodiversity Science, Montreal, Quebec, Canada}  }
@@ -101,8 +100,7 @@ for Biodiversity Science, Montreal, Quebec, Canada}  }
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2} (\textsuperscript{1}Département de Sciences Biologiques, Institut de
+Masse\textsuperscript{1,2}, Mohamed Hijri\textsuperscript{1,2} (\textsuperscript{1}Département de Sciences Biologiques, Institut de
 Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
 Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
 for Biodiversity Science, Montreal, Quebec, Canada)},
@@ -147,8 +145,7 @@ communities.}},
 {
    \vskip 13.5pt\relax \normalsize\fontsize{11}{12} 
 \textbf{\authorfont Sébastien Renaut\textsuperscript{1,2},Jacynthe
-Masse\textsuperscript{1,2}, Mengxuan Kong\textsuperscript{1,2}, Mohamed
-Hijri\textsuperscript{1,2}} \hskip 15pt \emph{\small \textsuperscript{1}Département de Sciences Biologiques, Institut de
+Masse\textsuperscript{1,2}, Mohamed Hijri\textsuperscript{1,2}} \hskip 15pt \emph{\small \textsuperscript{1}Département de Sciences Biologiques, Institut de
 Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke
 Est, Montreal, H1X 2B2, Quebec, Canada. \textsuperscript{2}Quebec Centre
 for Biodiversity Science, Montreal, Quebec, Canada}   
@@ -270,23 +267,23 @@ extracted using XXX DNA isolation kit with YYY g of root samples.
 Amplicon sequencing targeting 16S rRNA gene (bacteria) and ITS (fungi)
 was performed on both root and soil samples.\\
 \hspace*{0.333em}\\
-In order to target fungi, we used fungal primers ITS3\_KYO2
+In order to target fungi specifically, we used fungal primers ITS3\_KYO2
 (5'-ACACTGACGA CATGGTTCT ACAGATGAAGAAC GYAGYRAA-3') and ITS4\_KYO3
 (5'-TACGGT AGCAGAGACTT GGTCTCTBTTV CCKCTTCACTCG-3') to produce a final
 amplicon size of \textasciitilde{}430bp. This primer pair should target
 the Internal transcribed spacer and inhibit the amplification of plant
 sequences and enable the selective amplification of fungal communities
-from soil, mycorrhizal and other environmental samples (Toju \emph{et
-al.} 2012).\\
+from soil, mycorrhizal and other environmental samples Toju et al.
+(2012).\\
 \hspace*{0.333em}\\
 Bacterial primers 341F (5'-CCTACGGG NGGCWGCAG-3') and 805R (5'-GACTACC
 AGGGTATC TAATC-3') producing a final amplicon size of
 \textasciitilde{}464b and targeting specifically the bacterial V3-V4
-region of the 16S ribosomal gene were chosen given that they has been
+region of the 16S ribosomal gene were chosen. This primer pair has been
 used extensively in high-throughput sequencing studies in a range of
-environments Toju et al. (2012). This primer pair was shown to be the
-least biased among 512 primer pairs evaluated in silico for bacterial
-amplification Klindworth et al. (2013).\\
+environments and was shown to be the least biased among 512 primer pairs
+evaluated in silico for bacterial amplification Klindworth et al.
+(2013).\\
 \hspace*{0.333em}\\
 DNA samples were then barcoded, pooled and sequenced (2X300bp,
 paired-end) using an Illumina MiSeq (San Diego, CA, USA) sequencer at
@@ -297,14 +294,14 @@ Centre) and further processed as described below.\\
 \hspace*{0.333em}\\
 \emph{Bioinformatics}\\
 All bioinformatics, statistical, and graphical analyses further
-described were performed in R 3.4.4 (R Core Team 2018) and detailed
+described were performed in R 3.5.1 Team \& others (2018) and detailed
 scripts are available here
 (\url{https://github.com/seb951/Acadian_Seaplants}).\\
 \hspace*{0.333em}\\
 We used the \texttt{R} package \texttt{dada2} Callahan et al. (2016) to
 infer \emph{Amplicon Sequence Variants (ASVs)}. \texttt{Dada2} offers
 accurate sample inference from amplicon data with single-nucleotide
-resolution in an open source (R) environments. Unlike the Operational
+resolution in an open source environments. Unlike the Operational
 Taxonomic Unit (OTU) approach (e.g. Schloss et al. (2009), Caporaso et
 al. (2010)), ASV are not treated as cluster of sequences defined with an
 \emph{ad hoc} sequence similarity threshold. Instead, after sequences
@@ -331,8 +328,9 @@ run on a multithreaded (48 CPUs) computer infrastructure provided by
 Westgrid (\url{https://www.westgrid.ca/support/systems/cedar}) and
 Compute Canada (www.computecanada.ca). Note that the pipeline was run
 separately for fungal-root, fungal-soil, bacteria-soil and bacteria-root
-samples given the markedly different type of amplicons, taxa and error
-models of each dataset. ~\\
+samples given the markedly different nucleotide compositions of the
+sequenced amplicons, unique taxa and specific error models of each
+dataset. ~\\
 \hspace*{0.333em}\\
 \emph{Statistical analyses - plant productivity}\\
 We tested for the effect of species (tomato vs pepper), fertilization
@@ -347,8 +345,8 @@ square root or log transformed in order to help satisfy the assumption
 of normality of the residuals in the LMM statistical framework. For the
 variables \emph{fruit number} and \emph{average fruit weight}, we also
 used a permutation-based 2-way ANOVA (Anderson \& Legendre (1999)) given
-that the residuals of the LMM were not normally distributed, and results
-were similar.\\
+that the residuals of the LMM were not normally distributed (results
+were similarly significant).\\
 \hspace*{0.333em}\\
 \hspace*{0.333em}\\
 \emph{Statistical analyses - microbial and fungal diversity}\\
@@ -361,11 +359,12 @@ the mean sum (\(\overline{\sum_{i=1}^n ASV}\)) - 4\(\sigma\) (four
 standard deviations). In addition, we removed ASVs from our dataset that
 were present in fewer than 5\% of the samples (less than ten individuals
 in the soil samples, and less than five in the root samples). This was
-done to remove very rare ASVs which were unique to a block or replicate,
-but not found in the majority of a treatment.\\
+done to remove very rare ASVs unique to a block or replicate, but not
+found in the majority of a treatment and keep only \emph{abundant}
+ones.\\
 \hspace*{0.333em}\\
 We then conducted community-based analyses looking at the effect of the
-fertilization treatment on the abundance ASV taxa in the tomato and
+fertilization treatment on the abundant ASV taxa in the tomato and
 pepper experiments. To reduce the complexity of the datasets, relative
 abundance of all taxa were calculated per family using the \texttt{R}
 package \texttt{dplyr} Wickham et al. (2015). Barplots were drawn using
@@ -390,19 +389,18 @@ model.\\
 \hspace*{0.333em}\\
 We also performed canonical correspondence analyses (CCAs) using
 Hellinger-transformed ASV abundance data in \texttt{vegan} Oksanen et
-al. (2013) to visually assess (\emph{species} scaling based on ASV
-matrix) the grouping of samples, ASVs and their association with
-productivity variables. Data were analysed separately for fungal-root,
-fungal-soil, bacterial-root and bacterial-soil, but also according to
-species (tomato/pepper), given that analyses of \(a\) diversity showed
-that tomato and pepper were markedly different. This gave a total of
-eight CCAs. Data were constrained based on four of the productivity
-measures (fruit number, average fruits weight, shoots fresh weight,
-roots fresh weight). We excluded the shoot \& root dry weights as
-constraints to simplify the model and given that they were highly
-correlated with the fresh weigth already included as constraints
-(\(r^2\)=0.98 and 0.76 for shoot dry/fresh weights and root dry/fresh
-weights, respectively). ~\\
+al. (2013) to visually assess the grouping of samples, ASVs and their
+association with productivity variables (\emph{species} scaling based on
+ASV matrix). Data were analysed separately for fungal-root, fungal-soil,
+bacterial-root and bacterial-soil, but also according to species
+(tomato/pepper), given that analyses of \(a\) diversity showed that
+tomato and pepper were markedly different. This gave a total of eight
+CCAs. Data were constrained based on four of the productivity measures
+(fruit number, average fruits weight, shoots fresh weight, roots fresh
+weight). We excluded the shoot \& root dry weights as constraints to
+simplify the model and given that they were highly correlated with the
+fresh weigth already included as constraints (\(r^2\)=0.98 and 0.76 for
+shoot dry/fresh weights and root dry/fresh weights, respectively). ~\\
 \hspace*{0.333em}\\
 Finally, we attempted to identify candidate ASVs positively associated
 with productivity. As such, we identified the ten ASVs most positively
@@ -425,13 +423,14 @@ change that these are false positive.\\
 
 \section{RESULTS}\label{results}
 
-\emph{Soil characteristics} In Table 1, we present the soil
-characteristics.\\
+\emph{Soil characteristics}\\
+In Table 1, we present the characteristics of the soil which was
+collected at the IRDA research station in St-Bruno (Qc, Canada) and used
+in the current experimental design.\\
 \hspace*{0.333em}
 
 \begin{longtable}[]{@{}lr@{}}
-\caption{Table 1. Soil characteristics of the soil used for the
-experiment}\tabularnewline
+\caption{Soil characteristics}\tabularnewline
 \toprule
 Soil Characteristics & Average value\tabularnewline
 \midrule
@@ -492,55 +491,56 @@ weight was significantly higher in the fertilized pepper plants
 \hspace*{0.333em}\\
 \hspace*{0.333em}\\
 \emph{Sequencing}\\
-{A total of 2.7 million paired-end raw reads were obtained for all
+A total of 2.7 million paired-end raw reads were obtained for all
 samples combined (976,000 for fungi-soil, 920,000 for fungi-root,
 309,000 for bacteria-soil and 535,000 for bacteria-root, Table 2). Note
 that sequencing samples were analysed separately for fungal-soil,
 fungal-root, bacteria-soil and bacteria-root conditions. On average,
-46,965 paired-end reads were obtained per sample. After quality filters
+47,664 paired-end reads were obtained per sample. After quality filters
 were applied, including removing chimeras, and paired-end reads were
-merged, an average of 18,435 sequences remained. While 192 soil samples
-for fungi and bacteria, and 92 root samples for fungi and bacteria were
-sequenced, three fungi-soil samples, 13 fungi-root samples and two
-bacteria-root samples were removed because they had to few reads based
-on our strict quality thresholds.\\
+merged, an average of 19,690 sequences remained per sample. While 192
+soil samples for fungi and bacteria, and 96 root samples for fungi and
+bacteria were sequenced, seven fungi-soil samples, 15 fungi-root samples
+and one bacteria-root samples were removed because they had to few reads
+based on our strict quality thresholds.\\
 \hspace*{0.333em}\\
-The \texttt{dada2} pipeline infered, on average, 112 Amplicon Sequence
-Variants per sample (average of 163 fungal-soil ASV, 49 fungal-root
-ASVs, 112 bacterial-soil ASVs and 122 bacterial-root ASVs). Many of
-those were unique to one of a few samples (total number of 6,178
-fungal-soil, 930 fungal-root, 10,120 bacterial-soil and 3,143
-bacterial-roots ASVs). After quality filtering ASVs that were found in
-fewer than 10\% of the samples, we retained 418, 169, 206 and 250 ASVs
-and which comprised 91\%, 88\%, 50\% and 89\% of all reads in the
-fungal-soil, fungal-root, bacterial-soil and bacterial-root samples,
-respectively.}\\
+The \texttt{dada2} pipeline infered, on average, 170 Amplicon Sequence
+Variants per sample (average of 176 fungal-soil ASV, 37 fungal-root
+ASVs, 269 bacterial-soil ASVs and 92 bacterial-root ASVs). Many of those
+were unique to one of a few samples (total number of 6,112 fungal-soil,
+845 fungal-root, 9,352 bacterial-soil and 2,023 bacterial-roots ASVs).
+After quality filtering ASVs that were found in fewer than 10\% of the
+samples, we retained 413, 106, 811 and 325 ASVs and which comprised
+94\%, 95\%, 89\% and 98\% of all reads in the fungal-soil, fungal-root,
+bacterial-soil and bacterial-root samples, respectively.\\
 \hspace*{0.333em}\\
 \hspace*{0.333em}
 
 \begin{longtable}[]{@{}lrrrr@{}}
 \caption{Sequencing and ASV summary}\tabularnewline
 \toprule
-& fungi-soil & fungi-root & bacteria-soil & bacteria-root\tabularnewline
+& fungi\_soil & fungi\_root & bacteria\_soil &
+bacteria\_root\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-& fungi-soil & fungi-root & bacteria-soil & bacteria-root\tabularnewline
+& fungi\_soil & fungi\_root & bacteria\_soil &
+bacteria\_root\tabularnewline
 \midrule
 \endhead
 Nb\_seq\_sum & 976,000 & 309,000 & 920,000 & 535,000\tabularnewline
-Nb\_seq\_mean & 51,381 & 32,208 & 47,907 & 56,365\tabularnewline
-Nb\_seq\_mean\_filtered & 38,045 & 14,635 & 38,287 &
-46,081\tabularnewline
-Nb\_seq\_mean\_filt\_merged & 32,014 & 13,335 & 13,780 &
-41,058\tabularnewline
-Nb\_seq\_mean\_filt\_merg\_non\_chimeras & 24,737 & 8,505 & 12,049 &
-28,451\tabularnewline
+Nb\_seq\_mean & 50,847 & 32,208 & 47,907 & 56,365\tabularnewline
+Nb\_seq\_mean\_filtered & 32,626 & 12,714 & 29,662 &
+37,642\tabularnewline
+Nb\_seq\_mean\_filt\_merged & 29,300 & 12,094 & 14,060 &
+30,706\tabularnewline
+Nb\_seq\_mean\_filt\_merg\_non\_chimeras & 25,476 & 9,849 & 13,521 &
+30,408\tabularnewline
 Nb\_samples & 192 & 96 & 192 & 96\tabularnewline
-Nb\_samples\_trimmed & 189 & 83 & 192 & 94\tabularnewline
-ASV\_sum & 6,178 & 930 & 10,120 & 3,143\tabularnewline
-ASV\_sum\_trimmed & 418 & 169 & 206 & 250\tabularnewline
-ASV\_persample & 163 & 49 & 112 & 122\tabularnewline
+Nb\_samples\_trimmed & 189 & 81 & 192 & 95\tabularnewline
+ASV\_sum & 6,112 & 845 & 9,352 & 2,023\tabularnewline
+ASV\_sum\_trimmed & 413 & 106 & 811 & 325\tabularnewline
+ASV\_persample & 176 & 37 & 269 & 92\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -550,40 +550,43 @@ ASV\_persample & 163 & 49 & 112 & 122\tabularnewline
 We then analysed the whole community structure and report the relative
 abundance of taxa (family) for the fungal-soil, fungal-root,
 bacteria-soil and bacteria-root conditions (Figure 4). Fungal
-communities were dominated by Nectriaceae, both the in the root and soil
-samples. Bacterial root communities were largely dominated by the
-Cyanobacteria phylum (identified as \emph{chloroplast} according to the
-Ribosomal Database Project Naive Bayesian Classifier and the silva
-database). In fact, these ASVs are likely sequenced chloroplasts from
-the plants themselves, despite the fact that the primer pair used should
-have primarly targeted the bacterial V3-V4 region of the 16S ribosomal
-gene. The bacterial family Bacilaceae dominated to a lesser extent the
-soil communities.\\
+communities were dominated by Nectriaceae, both in the root and soil
+samples. The bacterial family Bacilaceae dominated to a lesser extent
+the soil communities. Bacterial root communities were largely dominated
+by the Cyanobacteria phylum (identified as \emph{chloroplast} according
+to the Ribosomal Database Project Naive Bayesian Classifier and the
+silva database). In fact, these ASVs are likely sequenced chloroplasts
+from the plants themselves, despite the fact that the primer pair used
+should have primarly targeted the bacterial V3-V4 region of the 16S
+ribosomal gene.\\
 \hspace*{0.333em}\\
-\includegraphics[width=7.29167in]{../figures/Figure4_FAMILY_barplots.pdf}\\
-\textbf{Figure 4: Barplots fo the relative abundance of ASVs for
-fungal-root, fungal-soil, bacteria-soil and bacteria-root}\\
-\hspace*{0.333em}\\
-\hspace*{0.333em}\\
+\includegraphics[width=7.29167in]{../figures/Figure4_FAMILY_barplots_fungi.pdf}\\
+\textbf{Figure 4a: Barplots fo the relative abundance of fungal ASVs for
+}\\
+\hspace*{0.333em} ~\\
+\includegraphics[width=7.29167in]{../figures/Figure4_FAMILY_barplots_bacteria.pdf}\\
+\textbf{Figure 4b: Barplots fo the relative abundance of bacterial ASVs
+for }\\
+\hspace*{0.333em} ~\\
 \emph{Local (\(a\)-diversity)}\\
 The diversity of each site (\(a\)-diversity) was calculated seperately
 for each sample and under each experimental conditions (fungi-soil,
 fungi-root, bacteria-soil and bacteria-root, Figure 5). Linear mixed
-effects models used to assess significance. In soils samples, fungal
-diversity differed with respect to the fertilization
-(\(F_{(1,161)}\)=14.35, \emph{p}-value\textless{}0.0001) and planting
-(\(F_{(1,161)}\)=41.00, \emph{p}-value\textless{}0.0001) treatment, but
-not the species (\(F_{(1,161)}\)=0.13, \emph{p}-value=0.72). In root
-samples, fungal diversity differed with respect to the fertilization
-treatment (\(F_{(1,56)}\)=13.56, \emph{p}-value=0.001), and the species
-tested (\(F_{(1,56)}\)=74.31, \emph{p}-value=0.003). In soil samples,
-bacterial diversity differed with respect to the fertilization treatment
-(\(F_{(1,165)}\)=46.25, \emph{p}-value\textless{}0.0001), planting
-(\(F_{(1,165)}\)=48.77, \emph{p}-value\textless{}0.0001) and species
-(\(F_{(1,165)}\)=10.22, \emph{p}-value=0.002). In root samples,
-bacterial diversity differed with respect to the fertilization treatment
-(\(F_{(1,67)}\)=16.48, \emph{p}-value=0.0001), and the species tested
-(\(F_{(1,67)}\)=523.42, \emph{p}-value\textless{}0.0001). ~\\
+effects models were used to assess significance. In soil samples, fungal
+diversity did not differ with respect to the fertilization
+(\(F_{(1,161)}\)=0.17, \emph{p}-value=0.6853), but did so with respect
+to planting (\(F_{(1,161)}\)=9.00, \emph{p}-value\textless{}0.0032)
+treatment and species (\(F_{(1,161)}\)=13.03, \emph{p}-value=0.0003). In
+root samples, fungal diversity differed with respect to the
+fertilization treatment (\(F_{(1,56)}\)=10.1, \emph{p}-value=0.003), and
+the species tested (\(F_{(1,56)}\)=4.5, \emph{p}-value=0.04). In soil
+samples, bacterial diversity differed with respect to the fertilization
+treatment (\(F_{(1,165)}\)=17.13, \emph{p}-value\textless{}0.0001),
+planting (\(F_{(1,165)}\)=139.0, \emph{p}-value\textless{}0.0001) but
+not species (\(F_{(1,165)}\)=1.89, \emph{p}-value=0.17). In root
+samples, bacterial diversity differed with respect to the fertilization
+treatment (\(F_{(1,67)}\)=17.27, \emph{p}-value=0.0001), and the species
+tested (\(F_{(1,67)}\)=359.69, \emph{p}-value\textless{}0.0001). ~\\
 \includegraphics[width=6.25000in]{../figures/Figure5_alpha.pdf}\\
 \textbf{Figure 5: Boxplot of alpha diversity according to the treatment,
 species and planting effect for fungal-root, fungal-soil, bacteria-soil
@@ -636,9 +639,9 @@ differentially (in fact nearly orthogonally to the other three
 constrains in most ordinations).\\
 \hspace*{0.333em}\\
 \newpage   \includegraphics{../figures/Figure6_rda.pdf}\\
-\textbf{Figure 6: Canonical correspondence analyses according for tomato
-(A-D) and peppers (E-H) for soil-fungi, root-fungi, soil-bacteria and
-root-bacteria. Samples are labelled and colored in gray (unfertilized)
+\textbf{Figure 6: Canonical correspondence analyses for tomato (A-D) and
+peppers (E-H) for soil-fungi, root-fungi, soil-bacteria and
+root-bacteria. Samples were labelled and colored in gray (unfertilized)
 or dark yellow (fertilized). Red crosses represent individual ASVs,
 while red points represent the ten ASVs most closely associated wih the
 three productivity measures of root fresh weight, shoots fresh weight
@@ -656,27 +659,22 @@ sequences most positively impacted (increase presence of the ASV) by
 fertilization. We further analysed the corresponding sequences for these
 eigthy candidates (ten candidates * eight ordinations) ASVs in two
 seperate alignments (one for fungi and one for bacterial ASVs) and their
-accompanying neighbouring joining trees. In fungi, we identified one
-cluster of ASVs taxonomically assigned to \emph{Olpidium brassicae}
-(fungal obligate parasite in the phylum Chytridiomycota) that forms the
-majority of ASVs most closely related to productivity. In addition, we
-identified five different ASVs in both species and both root and soil
-closely related phylogenetically. Given that no taxonomy was assigned to
-these sequences through the \texttt{dada2} RDP bootstrap approach, we
-used a BLASTn Altschul et al. (1997) approach (against NCBI nr) to
-identify the most closely related sequences. We identified this cluster
-of ASVs as \emph{Rhogostoma schuessleri (BLASTn, e-value=2e-74)}, a
-protist in the phylum Cercozoa, which are known to be present in the
-soil and phyllosphere Dumack et al. (2017) .\\
+accompanying phylogenetic trees. In fungi, we identified one cluster of
+ASVs taxonomically assigned to \emph{Mortierella} (soil saprotrophs in
+the phylum Zygomycota) positively associated to productivity in both
+tomato and pepper roots. In addition, we identified a cluster of four
+different ASVs in tomato soil (ASV132, ASV153) and pepper-root (ASV19 \&
+AV17) closely related phylogenetically. Given that no taxonomy was
+assigned to these sequences through the \texttt{dada2} RDP bootstrap
+approach, we used a BLASTn Altschul et al. (1997) approach (against NCBI
+nr) to identify the most closely related sequences. We identified this
+cluster of ASVs as \emph{Rhogostoma schuessleri (BLASTn,
+e-value=4e-76)}, a protist in the phylum Cercozoa, which are known to be
+present in the soil and phyllosphere Dumack et al. (2017).\\
 \hspace*{0.333em}\\
-In bacteria-roots, we identified a cluster of ten closely related
-sequences taxonomically assigned to \emph{Chloroplast}, and which likely
-originate from the plants themselves. We also identified a number of
-ASVs associated with productivity in the soil of both the pepper and
-tomato plants. Notably, ASV100 \& ASV73 (\emph{Oerskovia} spp.), ASV231
-(\emph{Blastocatellaceae}), ASV515, ASV1105 \& ASV647
-(\emph{Bacillaceae}), ASV107 (\emph{Methyloligellaceae}) and ASV95 \&
-ASV107 (\emph{Santhobacteraceae}) were identified. ~\\
+In bacteria-roots, we identified a number of different ASVs most
+positively impacted (increase presence of the ASV) by fertilization. For
+example, we identified\ldots{} ~\\
 \hspace*{0.333em}\\
 \includegraphics{../figures/Figure7_candidateASVs.pdf}\\
 \textbf{Figure 7: Neighbor-Joining trees of candidates ASVs (fungi \&
@@ -697,13 +695,17 @@ reproducible, open \& R based. It identifies unique (non-clustered) ASVs
 which can be compared among species) \& disadvantages (essentially, the
 main disadvantage is that it identifies non-clustered ASVs, which means
 that most ASVs are unique, and not found anywhere else, which makes it
-hard to compare: see \emph{Sequencing} paragraph in results).\\
-• Also, talk about advantages / disadvantages of the RDP bayesian
-classifier approach to taxonomy rather than a BLAST approach (a BLAST
-approach will always give you a result even if this result is false, an
-RDP will only give you a taxonomy (from Kindgom to species) if there is
-enough power/confidence in it). Also any taxonomy classification largely
-depends on the database you have.\\
+hard to compare: see \emph{Sequencing} paragraph in results). Also
+mention that most ASVs are unique AND very rare, such that when we
+remove the rare ones (found in \textless{}10\% of the samples), we
+discard \textasciitilde{}90\% of ASV, but keep \textgreater{}95\% of
+reads. So this is still a very valuable approach. • Also, talk about
+advantages / disadvantages of the RDP bayesian classifier approach to
+taxonomy rather than a BLAST approach (a BLAST approach will always give
+you a result even if this result is false, an RDP will only give you a
+taxonomy (from Kindgom to species) if there is enough power/confidence
+in it). Also any taxonomy classification largely depends on the database
+you have.\\
 • Talk about effect of treatment on root + soil on overall (alpha)
 diversity. • Talk about effect of treatment on root + soil on
 differences in species composition among sites (beta diversity) • Talk
@@ -712,6 +714,10 @@ rather than the bacteria.\\
 • Discuss some of the candidate ASVs identified based on the ordinations
 and Figure 7.\\
 • Follow-up work: ?
+
+\section{ACKNOWLEDGMENTS}\label{acknowledgments}
+
+We thank Mengxuan Kong for technical work measuring productivity.
 
 \newpage  
 
@@ -799,6 +805,10 @@ Introducing mothur: Open-source, platform-independent,
 community-supported software for describing and comparing microbial
 communities. \emph{Applied and environmental microbiology}
 75:7537--7541.
+
+\hypertarget{ref-team2018r}{}
+Team RC., others. 2018. R: A language and environment for statistical
+computing.
 
 \hypertarget{ref-toju2012high}{}
 Toju H., Tanabe AS., Yamamoto S., Sato H. 2012. High-coverage its

@@ -75,7 +75,7 @@ asv.filt.abundants.norm.barplot = cbind(colMeans(asv.filt.abundants.norm[design.
                          colMeans(asv.filt.abundants.norm[design.keep$species == "tomato", ]), 
                          colMeans(asv.filt.abundants.norm[design.keep$species == "pepper", ]))
 
-colnames(asv.filt.abundants.norm.barplot) = c("fertilization", "no.fertiliz.","tomato","pepper")      
+colnames(asv.filt.abundants.norm.barplot) = c("fertilization", "control","tomato","pepper")      
 
 #barplot (TOP20)
 barplot.taxo = c(1:nrow(taxo))
@@ -98,28 +98,7 @@ asv.filt.abundants.norm.FAMILY = as.data.frame(asv.filt.abundants.norm.barplot) 
 asv.filt.abundants.norm.FAMILY[47,1] = "chloroplast*"
 asv.filt.abundants.norm.FAMILY[26,1] = "mitochondria*"
 
-#top10
-temp = asv.filt.abundants.norm.FAMILY[order(rowSums(asv.filt.abundants.norm.FAMILY[,2:5]),decreasing = T),]
-asv.filt.abundants.norm.FAMILY.top10 = temp[1:10,]
-barplot.data = as.data.frame(unlist(asv.filt.abundants.norm.FAMILY.top10[,2:5]))
-colnames(barplot.data)[1] = "fraction"
-n = nrow(asv.filt.abundants.norm.FAMILY.top10)
-barplot.data$treatment =c(rep("control",n),rep("fertilization",n),rep("tomato",n),rep("pepper",n))
-barplot.data$taxonomy = unlist(rep((asv.filt.abundants.norm.FAMILY.top10[,1]),ncol(asv.filt.abundants.norm.FAMILY.top10)-1))
-
-
-
-###ggplot ----
-dev.new()
-p = ggplot() + labs(title = "Roots - bacteria",fill = "Taxonomy (Family)",y ="Relative abundance of ASVs") +
-  theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5, size=14, face="bold")) +
-  geom_bar(aes(y = fraction, x = treatment, fill = taxonomy),
-           data = barplot.data,stat="identity")
-p + scale_fill_brewer(palette = "Set3")
-dev.print(device=pdf, "figures/bacteria/Figure4br_FAMILY_ASVabundance.pdf", onefile=FALSE)
-dev.off()
-
+write.table(asv.filt.abundants.norm.FAMILY,"results/asv/asv.filt.abundants.norm.FAMILY_br")
 
 
 ###alpha diversity ----
@@ -182,14 +161,14 @@ write.table(permanova$aov.tab,"results/asv/permanova.root_bacteria")
 asv.filt.abundants.norm.hel.bray <-vegdist(asv.filt.abundants.norm.hel, method="bray")
 
 #Calculating PCoA
-asv.filt.abundants.norm.hel.bray.pcoa<-pcoa(dist(asv.filt.abundants.norm.hel.bray))
+asv.filt.abundants.norm.hel.bray.pcoa<-pcoa(asv.filt.abundants.norm.hel.bray)
 
 #How many axes represent more variability (17)
 bs = asv.filt.abundants.norm.hel.bray.pcoa$values$Broken_stick
 length(bs[bs>mean(bs)])
 
 #PVE of first 2 axes (4.7% & 3.8%)
-axis.1.2 = round((asv.filt.abundants.norm.hel.bray.pcoa$values$Broken_stick/sum(asv.filt.abundants.norm.hel.bray.pcoa$values$Broken_stick))[1:2],4)*100
+axis.1.2 = round(c(asv.filt.abundants.norm.hel.bray.pcoa$values$Relative_eig[1],asv.filt.abundants.norm.hel.bray.pcoa$values$Relative_eig[2]),4)*100
 
 #Ploting the PCoAs - with fertilization as empty circles
 #crops are "darkred","darkblue","darkorange
@@ -246,6 +225,9 @@ for(species in c("Tomato","Pepper"))
   
   #RDA (Constrained Ordination)
   rda = cca(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(6,8,9,10)])
+  
+  #verify model significance
+  print(anova.cca(rda))
   
   #plot
   dev.new(width=7, height=7,units = "inch")
