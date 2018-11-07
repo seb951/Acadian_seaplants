@@ -97,7 +97,7 @@ abline(v = 2.5,lty = 2)
 mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
-dev.print(device=pdf, "figures/productivity/Figure_3_productivity.pdf", onefile=FALSE)
+dev.print(device=pdf, "figures/Figure_3_productivity.pdf", onefile=FALSE)
 dev.off()
 
 #legend
