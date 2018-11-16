@@ -1,16 +1,16 @@
 ---
 output: 
   word_document:
-  pdf_document:
-    keep_tex: true
-    fig_caption: true
-    latex_engine: pdflatex
-    template: ../reference_material/svm-latex-ms.tex
+#  pdf_document:
+#    keep_tex: true
+#    fig_caption: true
+#    latex_engine: pdflatex
+#    template: ../reference_material/svm-latex-ms.tex
 title: "**The effect of *Ascophyllum nodosum* extracts on tomato and pepper plant productivity and their associated fungal and bacterial communities.**"
 author:
 - name: Sébastien Renaut^1,2^,Jacynthe Masse^1,2^, Mohamed Hijri^1,2^
   affiliation: ^1^Département de Sciences Biologiques, Institut de Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke Est, Montreal, H1X 2B2, Quebec, Canada. ^2^Quebec Centre for Biodiversity Science, Montreal, Quebec, Canada
-abstract: "Abstract to be written here"
+abstract: "Root and soil microbial and fungal activity were examined in two species (pepper and tomato) following treatment with Ascophyllum nodosum marine- plant extract. In addition, productivity was measured."
 keywords: "Stella Marris, 16S, ITS, microbial diversity, Illumina MiSeq"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 geometry: margin=1in
@@ -31,15 +31,23 @@ header-includes:
 
 
 #INTRODUCTION  
-Liquid extracts of marine macroalga are used as biostimulants in agriculture. These extracts contain phytohormones that can influence physiological processes even at very low concentrations @craigie2011seaweed. Stella Maris® is derived from fresh *Ascophyllum nodosum* algae harvested from the nutrient-laden waters of the North Atlantic off the Eastern Coast of Canada.  
+Seaweeds (also known as marine algae) have been used as a source of organic matter and nutrients for centuries, especially in coastal areas [@khan2009seaweed;@craigie2011seaweed]. Originally, farmers would simply collect and dry algae before directly applying them to the field to decompose naturally prior to seeding in the spring. Liquid seaweed extracts, developped in the 1950s in order to concentrate plant growth-stimulating compounds, facilate their usage in modern agricultural crop production systems @milton1952improvements. Today, most commercially available seaweed extracts are made using a high temperature and pressure alcaline extraction technique from brown algae such as *Ascophyllum nodosum*, *Ecklonia maxima* or *Laminaria spp*.  
+&nbsp;   
+One of the main advantages of seaweed extracts is that they are biodegradable, non-toxic and come from a renewable resources, unlike modern chemical fertilizers @dhargalkar2005seaweed. As such, they are commonly used as a natural fertilizer and source of phytohormones in organic and sustainable agricultural systems @craigie2011seaweed. However, the specific molecular mechanisms underlying their mode-of-action and their effect on plant growth and productivity are complex and not well understood. In fact, scientific research into their mode-of-action on plant growth and their effect on root associated microbial and fungal communities is still in its infancy [@khan2009seaweed;@alam2013ascophyllum]. In turn, this likely precludes a greater acceptance of liquid seaweed extracts as a viable and renewable alternative to limit the use of modern fertilizers and pesticides in agriculture.  
+&nbsp;   
+Studies on liquid seaweed extracts have been conducted to bettter understand how seaweed extracts might ultimately boost plant productivity [e.g.: @khan2009seaweed;@alam2013ascophyllum;@alam2013effect;@wally2013regulation;@arioli2015applications] and a large number of phytohormones which can influence physiological processes even at very low concentrations, have been identified. Auxins, cytokinins, abscissic acid or gibberellins are all phytohormones present in seaweed extracts and which are hypothesized to trigger disease response pathways and increase stress tolerance in plants [@arioli2015applications;@stirk2014plant]. Yet, @wally2013regulation concluded that phytohormone levels present within the extracts themselves were insufficient to cause significant effects in plants when applied at recommended rates. Instead, bioactive components within seaweed extracts themselves such as vitamins, oligosaccharides, and micronutrients may directly modulate the plant endogeneous biosynthesis pathways of phytohormones. Nevertheless, the basis for these benefits is complex and still relatively poorly understood [@arioli2015applications;@stirk2014plant].   
 &nbsp;  
-The aim of this project was to develop a better understanding of the effects of *A. nodosum* extracts on plant growth. We tested the effect of these extract on two commonly used plants (Tomato - *Solanum lycopersicum* and Pepper - *Capsicum annuum*) using different measures of productivity. In addition, we tested how the bacterial and fungal communities responded to the addition of *A. nodosum* extracts.  
+Concurrently, it is hypothesized that the application of seaweed extract may also alter microbial and fungal communities. This is turn, could explain the improved plant performance often observed when seaweed extracts are applied to agricultural soil [@santoyo2012mechanisms;@alam2013ascophyllum;@alam2013effect]. For example, @alam2013ascophyllum demonstrated that the applicatio of *Ascophyllum* extracts increased root associated microbial activity while promoting plant growth and root yield in carrots. Similarly, @alam2013effect showed that seaweed extracts increased strawberry root and shoot growth, berry yield and rhizosphere microbial diversity. While promising, these studies come with two major caveats. First, corellation does not imply causation, and the molecular mechanisms behind the observed seaweed extract - bacterial diversity - plant productivity relationship was not identified precisely. Second, these studies required culturing bacteria *in vitro*, a labour intensive approach targetting a small (and biased) fraction of the total communities. Given the vast diversity of microbial populations, studies on the functional activity of complex soil microbial communities remain challenging.  
+&nbsp;     
+The recent development of culture-independent molecular techniques should therefore permit to circumvent the inherent bias of culture based approaches by targeting the ubiquitous component of life, its DNA. In turn, this should permit to identify a larger proportion of the bacterial diversity and lead to a better understanding of the soil microbial response to seaweed extract. DNA barcoding targeting the internal transcribed spacer (ITS) region of the nuclear ribosomal repeat and the bacterial V3-V4 region of the 16S ribosomal gene for fungi and bacteria, respectively, are now regarded as a prerequisite procedure to comprehensively understand the diversity and ecology of microbial organisms [@toju2012high;@klindworth2013evaluation]. Once this is performed, further studies for example using inoculum of microbial species linked to the presence of liquid seaweed extract may help to identify a causative link between extracts, microbes and productivity.  
+&nbsp;   
+The aim of the current project was to quantify the impact of seaweed (*Ascophyllum nodosum*) extracts on plant growth. In addition, we tested how the bacterial and fungal communities responded to the addition of theses extracts. We hypothesized that the inclusion of liquid seaweed extracts would improve productivity and alter significantly the bacterial and fungal communities. We used a a commercially available extract (Stella Maris®) derived from fresh *Ascophyllum nodosum* algae harvested from the nutrient-laden waters of the North Atlantic off the Eastern Coast of Canada. We tested the effect of these extract on two commonly used plants (Tomato - *Solanum lycopersicum* and Pepper - *Capsicum annuum*) using different measures of productivity and by measuring soil and root bacterial anf fungal diversity using High Througput Illumina Miseq sequencing.  
 &nbsp;
 &nbsp;  
 
 #MATERIAL AND METHOD  
 *Study design*  
-Two greenhouse experiment were set up in large trays (60x30x18 cm) in November (tomato [cv: Totem Hybrid#A371, William Dam Seeds Ltd]) and December (Pepper [cv: Ace Hybrid#318, William Dam Seeds Ltd]) 2015. Soil was collected from an agricultural field under organic regime at the IRDA research station in St-Bruno (Qc, Canada) on October 7^th^ 2015 (loamy sand soil, 15 cm top layer collected). Soil characteristics (pH, conductivity, nutrients, see Table 1) were measured by AgriDirect (Longueuil, Qc, Canada).  
+Two greenhouse experiment were set up in large trays (60x30x18 cm) in November (tomato [cv: Totem Hybrid#A371, William Dam Seeds Ltd]) and December (Pepper [cv: Ace Hybrid#318, William Dam Seeds Ltd]) 2015. Soil was collected from an agricultural field under organic regime at the IRDA research station in St-Bruno (Qc, Canada) on October 7^th^ 2015 (loamy sand soil, 15 cm top layer collected). Soil characteristics (pH, conductivity, nutrients, see Table 1) were measured by AgriDirect (Longueuil, Qc, Canada).    
 &nbsp;  
 For each species tested (Tomato - *Solanum lycopersicum*, Pepper - *Capsicum annuum*), a randomized split block design (Figure 1) was used with four trays set up per block (eight blocks). Half of the trays were fertilized (fertilization treatment), as described below. Half of the trays were also planted with four replicate plants each, while the other trays were left bare. This allowed a direct comparison of the fungal and bacteria soil communities with respect to the fertilization and planting treatment. 
 &nbsp;  
@@ -108,12 +116,12 @@ kable(permanova.summary,digits =4,caption = "Soil characteristics")
 *productivity*  
 We tested the effect of the fertilization treatment on six measures of overall plant growth and productivity (fruit number, average fruit weight, shoots fresh weight, shoots dry weight, roots fresh weight, roots dry weight) for both tomato and peppers. Visually, both above ground and below ground plant structure grew larger in fertilized plants, in addition to producing more fruits (see Figure 2 for some examples of the striking difference between fertilized and unfertilized plants). 
 &nbsp;  
-![Figure 2](../figures/productivity/Figure_2_photos_productivity.png){width=500px}  
+![Figure 2](../figures/Figure_2_photos_productivity.png){width=500px}  
 **Figure 2: Plant productivity. Photos were taken at the end of the experimental treatment. In each photo, fertilized plants are on the left. A: pepper plants, B: pepper roots, C: pepper fruits and D: tomato fruits.**  
 &nbsp;  
 Statistically, all six productivity measures significantly differed according to species, and five of those were significantly different according to the fertilization treatment. The only exception was the average fruit weight which did not differ between fertilized and control plants (LMM, $F_{(1,69)}$ = 1.27, *p*-value=0.26). However the model did reveal a significant interaction between treatment and plant ($F_{(1,69)}$ = 9.6, *p*-value=0.0028). In fact, when testing only the pepper plants, the effect of fertilization on average fruit weight was significantly higher in the fertilized pepper plants ($F_{(1,23)}$ = 10.84, *p*-value=0.0032).  
 &nbsp;  
-![Figure 3](../figures/productivity/Figure_3_productivity.pdf){width=600px}  
+![Figure 3](../figures/Figure_3_productivity.pdf){width=600px}  
 **Figure 3: measures of plant productivity.**  
 &nbsp;  
 &nbsp;  
@@ -202,7 +210,7 @@ In bacteria-roots, we identified a number of different ASVs most positively impa
 • Follow-up work: ?
    
 #ACKNOWLEDGMENTS
-We thank Mengxuan Kong for technical work measuring productivity.
+We thank Mengxuan Kong for technical work measuring productivity. Simon Morvan for discussion about analyses + seaweed extracts.
   
 \newpage  
   
