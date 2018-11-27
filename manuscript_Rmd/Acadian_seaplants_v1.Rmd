@@ -8,10 +8,10 @@ output:
 #    template: ../reference_material/svm-latex-ms.tex
 title: "**The effect of *Ascophyllum nodosum* extracts on tomato and pepper plant productivity and their associated fungal and bacterial communities.**"
 author:
-- name: Sébastien Renaut^1,2^,Jacynthe Masse^1,2^, Mohamed Hijri^1,2^
-  affiliation: ^1^Département de Sciences Biologiques, Institut de Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke Est, Montreal, H1X 2B2, Quebec, Canada. ^2^Quebec Centre for Biodiversity Science, Montreal, Quebec, Canada
+- name: Sébastien Renaut^1,2^,Jacynthe Masse^1,2^, Jeffrey P. Norrie^3^, Bachar Blal^^3 Mohamed Hijri^1,2^
+  affiliation: ^1^Département de Sciences Biologiques, Institut de Recherche en Biologie Végétale, Université de Montréal, 4101 Sherbrooke Est, Montreal, H1X 2B2, Quebec, Canada. ^2^Quebec Centre for Biodiversity Science, Montreal, Quebec, Canada ^3^Acadian Seaplant Ltd, 30 Brown Avenue, Darthmouth, Nova Scotia, Canaad, B3B 1X8
 abstract: "Root and soil microbial and fungal activity were examined in two species (pepper and tomato) following treatment with Ascophyllum nodosum marine- plant extract. In addition, productivity was measured."
-keywords: "Stella Marris, 16S, ITS, microbial diversity, Illumina MiSeq"
+keywords: "Stella Maris, 16S, ITS, soil microbial diversity, Illumina MiSeq"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 geometry: margin=1in
 fontfamily: mathpazo

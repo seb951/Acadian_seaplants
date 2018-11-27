@@ -119,9 +119,12 @@ par(mfrow = c(1,1),mar = c(5,4,4,2))
 names = expression(italic(control),italic(fertilized),italic(Pepper),italic(Tomato))
 
 #
-boxplot(asv.filt.abundants.norm.alpha$alpha~asv.filt.abundants.norm.alpha$fertilization,ylab = expression(italic(alpha)~~diversity ("Inverse Simpson Index")),
-        main = "Roots - Fungi",xpd = T,main = "Species",font = 2,xlim = c(0.5,4.5),names = c("",""))
-boxplot(asv.filt.abundants.norm.alpha$alpha~asv.filt.abundants.norm.alpha$species,add = T,at = 3:4,names = c("",""))
+x=boxplot(asv.filt.abundants.norm.alpha$alpha~asv.filt.abundants.norm.alpha$fertilization,ylab = expression(italic(alpha)~~diversity ("Inverse Simpson Index")),
+        main = "Roots - Fungi",xpd = T,font = 2,xlim = c(0.5,4.5),names = c("",""))
+text(labels = c("a","b"),x = c(1.2,2.2),y = x$stats[4,]+max(x$stats[4,])/30,cex = 1.5,font =3)
+
+x=boxplot(asv.filt.abundants.norm.alpha$alpha~asv.filt.abundants.norm.alpha$species,add = T,at = 3:4,names = c("",""))
+text(labels = c("a","b"),x = c(3.2,4.2),y = x$stats[4,]+max(x$stats[5,])/30,cex = 1.5,font =3)
 
 abline(v = 2.5,lty = 2)
 mtext(names,side = 1,at = c(1:4),cex =0.8,line = 1)

@@ -59,6 +59,11 @@ lmm.roots.dry.weight <- lme(roots.dry.weight~treatment*plant,data = productivity
 anova(lmm.roots.dry.weight)
 shapiro.test(lmm.roots.dry.weight$residuals[,1]) #test the normality of the residualds for the fixed effects...
 
+
+#get productivity fold changes as well...
+p_p = productivity[productivity[,1]=="Pepper",]
+p_t = productivity[productivity[,1]=="Tomato",]
+
 #boxplot
 #boxplot it?
 dev.new(width=14, height=10,units = "cm",noRStudioGD = TRUE)
@@ -69,32 +74,49 @@ names = expression(italic(control),italic(fertilized),italic(control),italic(fer
 
 x=boxplot(fruit.number~treatment*plant,data = productivity,ylim = c(0,max(productivity$fruit.number)*1.0),names = names,font = 2,cex.main = 1.5, main = "Fruit number")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+#Fold changes
+p_fc = signif(mean(p_p$fruit.number[p_p[,2]== "F+"])/mean(p_p$fruit.number[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$fruit.number[p_t[,2]== "F+"])/mean(p_t$fruit.number[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",sep="")),at = c(1.5,3.5),side = 1,line = -23,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 x=boxplot(average.fruit.weight~treatment*plant,data = productivity,ylim = c(0,max(productivity$average.fruit.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Avg fruit fresh weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+p_fc = signif(mean(p_p$average.fruit.weight[p_p[,2]== "F+"])/mean(p_p$average.fruit.weight[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$average.fruit.weight[p_t[,2]== "F+"])/mean(p_t$average.fruit.weight[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),"Tomato"),at = c(1.5,3.5),side = 1,line = c(-23,-25),cex = 1.5)
 #text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 x=boxplot(shoots.fresh.weight~treatment*plant,data = productivity,ylim = c(0,max(productivity$shoots.fresh.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Shoot fresh weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+#Fold changes
+p_fc = signif(mean(p_p$shoots.fresh.weight[p_p[,2]== "F+"])/mean(p_p$shoots.fresh.weight[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$shoots.fresh.weight[p_t[,2]== "F+"])/mean(p_t$shoots.fresh.weight[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",sep="")),at = c(1.5,3.5),side = 1,line = -23,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 x=boxplot(shoots.dry.weight~treatment*plant,data = productivity,ylim = c(0,max(productivity$shoots.dry.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Shoot dry weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+#Fold changes
+p_fc = signif(mean(p_p$shoots.dry.weight[p_p[,2]== "F+"])/mean(p_p$shoots.dry.weight[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$shoots.dry.weight[p_t[,2]== "F+"])/mean(p_t$shoots.dry.weight[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",sep="")),at = c(1.5,3.5),side = 1,line = -23,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 x=boxplot(roots.fresh.weight~treatment*plant,data = productivity,ylim = c(0,max(productivity$roots.fresh.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Root fresh weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+#Fold changes
+p_fc = signif(mean(p_p$roots.fresh.weight[p_p[,2]== "F+"])/mean(p_p$roots.fresh.weight[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$roots.fresh.weight[p_t[,2]== "F+"])/mean(p_t$roots.fresh.weight[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",sep="")),at = c(1.5,3.5),side = 1,line = -23,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 x=boxplot(roots.dry.weight~treatment*plant,data = productivity,ylim = c(0,max(productivity$roots.dry.weight)*1.05),names = names,font = 2,cex.main = 1.5, main = "Root dry weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
-mtext(text = c("Pepper","Tomato"),at = c(1.5,3.5),side = 1,line = -25,cex = 1.5)
+#Fold changes
+p_fc = signif(mean(p_p$roots.dry.weight[p_p[,2]== "F+"])/mean(p_p$roots.dry.weight[p_p[,2]== "F-"]),3)
+t_fc = signif(mean(p_t$roots.dry.weight[p_t[,2]== "F+"])/mean(p_t$roots.dry.weight[p_t[,2]== "F-"]),3)
+mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",sep="")),at = c(1.5,3.5),side = 1,line = -23,cex = 1.5)
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 
 dev.print(device=pdf, "figures/Figure_3_productivity.pdf", onefile=FALSE)
@@ -103,3 +125,11 @@ dev.off()
 #legend
 system("touch figures/legend") 
 system("echo 'Figure_2_productivity.pdf : all 6 traits are different (higher) in fertilized plants (Linear mixed effect model (block and replicate are random factors) p<0.0001). Species are different too (p<0.001) except for the fruit fresh weight' >>figures/legend")
+
+
+
+
+####sandbox
+
+
+mean(p_p[p_p[,2]== "F+",6])/mean(p_p[p_p[,2]== "F-",6])

@@ -153,8 +153,8 @@ for(taxa in c("Bacteria","Fungi"))
   #plot.phylo
   dev.new()
   plot.phylo(treeNJ,cex = 0.5,tip.color = tip.color[candidate.ASV.all$Kingdom==taxa],font = 2,main = taxa,xpd = T)
-  if(taxa == "Fungi") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFF99")
-  if(taxa == "Bacteria") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFF99")
+  if(taxa == "Fungi") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFFCC")
+  if(taxa == "Bacteria") legend(0.02,40,legend =  c("Tomato - root","Tomato - soil","Pepper - root","Pepper - soil"), fill = c("darkred","darkorange2","cyan4","darkblue"),bg = "#FFFFFFCC")
   dev.print(device=pdf, paste("figures/",tolower(taxa),"/Figure7_",tolower(taxa),"_tree.pdf",sep = ""), onefile=FALSE)
   dev.off()
   }
@@ -162,8 +162,8 @@ for(taxa in c("Bacteria","Fungi"))
 
 #Figure 7 - trees -----
 figure7 = multi_panel_figure(width = 14,height = 7, unit = "inch",rows = 1,columns = 2)
-figure7 %<>% fill_panel("figures/bacteria/Figure7_bacteria_tree.pdf",row = 1, column = 2)
 figure7 %<>% fill_panel("figures/fungi/Figure7_fungi_tree.pdf",row = 1, column = 1)
+figure7 %<>% fill_panel("figures/bacteria/Figure7_bacteria_tree.pdf",row = 1, column = 2)
 figure7 %>% save_multi_panel_figure(filename = "figures/Figure7_candidateASVs.pdf")
 
 #Figure 7 - candidates

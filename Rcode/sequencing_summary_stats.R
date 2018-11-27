@@ -13,8 +13,8 @@ summary.stats.fungi_soil = read.table("asv/summary.stats.fungi_soil",header = T,
 
 #summary stat it:
 summary.stats = rbind(summary.stats.bacteria_root,summary.stats.bacteria_soil,summary.stats.fungi_root,summary.stats.fungi_soil)
-summary.stats$treatment =  c(rep("bacteria_root",95),rep("bacteria_soil",192),
-                        rep("fungi_root",96),rep("fungi_soil",192))
+summary.stats$treatment =  c(rep("bacteria-root",95),rep("bacteria-soil",192),
+                        rep("fungi-root",96),rep("fungi-soil",192))
 
 #
 summary.table = summary.stats %>% group_by(treatment) %>% summarise(Nb_samples = n(),
