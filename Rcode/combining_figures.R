@@ -4,7 +4,8 @@ setwd("/Users/jerry/Documents/CSBQ/hijri/Acadian_seaplants")
 
 #combining figures
 library(RColorBrewer)
-library(multipanelfigure)
+library(vegan)
+#library(multipanelfigure)
 library(magrittr)
 library(dplyr)
 library(DECIPHER) #this is a bioconductor packages
@@ -66,33 +67,6 @@ p
 dev.print(device=pdf, paste("figures/Figure4_FAMILY_barplots_",group,".pdf",sep=""), onefile=FALSE)
 dev.off()
 }
-
-
-
-#Figure 6 - RDA -----
-figure6 = multi_panel_figure(width = 14,height = 28, unit = "inch",rows = 4,columns = 2)
-
-figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Tomato.pdf",row = 1, column = 1)
-figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Tomato.pdf",row = 2, column = 1)
-figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Tomato.pdf",row = 3, column = 1)
-figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Tomato.pdf",row = 4, column = 1)
-
-figure6 %<>% fill_panel("figures/fungi/Figure6fs_RDA_Pepper.pdf",row = 1, column = 2)
-figure6 %<>% fill_panel("figures/fungi/Figure6fr_RDA_Pepper.pdf",row = 2, column = 2)
-figure6 %<>% fill_panel("figures/bacteria/Figure6bs_RDA_Pepper.pdf",row = 3, column = 2)
-figure6 %<>% fill_panel("figures/bacteria/Figure6br_RDA_Pepper.pdf",row = 4, column = 2)
-
-figure6 %>% save_multi_panel_figure(filename = "figures/Figure6_rda.pdf")
-
-
-#Figure5 - alpha -----
-figure5 = multi_panel_figure(width = 18,height = 14, unit = "inch",rows = 2,columns = 2)
-
-figure5 %<>% fill_panel("figures/fungi/Figure4fs_alpha.pdf",row = 1, column = 1)
-figure5 %<>% fill_panel("figures/fungi/Figure4fr_alpha.pdf",row = 1, column = 2)
-figure5 %<>% fill_panel("figures/bacteria/Figure4bs_alpha.pdf",row = 2, column = 1)
-figure5 %<>% fill_panel("figures/bacteria/Figure4br_alpha.pdf",row = 2, column = 2)
-figure5 %>% save_multi_panel_figure(filename = "figures/Figure5_alpha.pdf")
 
 
 #Tree of candidate ASVs with taxonomy infos---

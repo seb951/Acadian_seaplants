@@ -1,8 +1,8 @@
 "fungi-soil" "fungi-root" "bacteria-soil" "bacteria-root"
-"fertilization" "0.02 (2e-04)" "0.08 (1e-04)" "0.04 (1e-04)" "0.07 (1e-04)"
-"planted" "0.21 (1e-04)" NA "0.13 (1e-04)" NA
-"species" "0.02 (1e-04)" "0.26 (1e-04)" "0.02 (3e-04)" "0.52 (1e-04)"
-"fertilization:planted" "0.01 (0.003)" NA "0.02 (1e-04)" NA
-"fertilization:species" "0.01 (0.006)" "0.04 (0.002)" "0.03 (1e-04)" "0.05 (2e-04)"
-"planted:species" "0.01 (0.09)" NA "0.01 (0.004)" NA
-"fertilization:planted:species" "0.01 (0.16)" NA "0.01 (0.04)" NA
+"fertilization" "0.02***" "0.08***" "0.04***" "0.07***"
+"planted" "0.21***" NA "0.13***" NA
+"species" "0.02***" "0.26***" "0.02***" "0.52***"
+"fertilization:planted" "0.01**" NA "0.02***" NA
+"fertilization:species" "0.01*" "0.04*" "0.03***" "0.05***"
+"planted:species" "0.01" NA "0.01**" NA
+"fertilization:planted:species" "0.01" NA "0.01*" NA

@@ -42,6 +42,11 @@ sum(asv.filt.abundants)/sum(asv.filt)
 #relative abundance
 asv.filt.abundants.norm = asv.filt.abundants/rowSums(asv.filt.abundants)
 
+#save it 
+write.table(asv.filt.abundants.norm,"results/asv.filt.abundants.norm_bs")
+write.table(taxo.abundants,"results/taxo.abundants_bs")
+
+
 ###statistal analyses on ASVs----
 design = read.table("reference_material/experimental_design.txt", header = TRUE, stringsAsFactors = FALSE)
 

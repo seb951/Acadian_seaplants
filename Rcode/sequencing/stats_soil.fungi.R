@@ -31,6 +31,7 @@ for(i in 1:ncol(asv.filt))
 asv.filt.abundants = asv.filt[,asv.singletons>10]
 taxo.abundants = taxo[asv.singletons>10,]
 
+
 #what fraction of ASV do you got rid off
 print(length(asv.singletons[asv.singletons<10])/length(asv.singletons))  
 
@@ -39,6 +40,10 @@ sum(asv.filt.abundants)/sum(asv.filt)
 
 #relative abundance
 asv.filt.abundants.norm = asv.filt.abundants/rowSums(asv.filt.abundants)
+
+#save it 
+write.table(asv.filt.abundants.norm,"results/asv.filt.abundants.norm_fs")
+write.table(taxo.abundants,"results/taxo.abundants_fs")
 
 ###statistal analyses on ASVs----
 design = read.table("reference_material/experimental_design.txt", header = TRUE, stringsAsFactors = FALSE)
@@ -87,7 +92,7 @@ dev.new()
 par(mar=c(16,4,4,2))
 barplot(asv.filt.abundants.norm.barplot,beside = F,font = 3, axisnames = TRUE,cex.names = 0.6, cex.lab = 0.6,ylab = "Relative ASV abundance",col = c(cols25(),rep("grey",10000)), las = 3, xpd = TRUE)
 legend(0.1,-0.12,fill = cols25()[1:20],legend =  barplot.taxo[1:20],cex = 0.75,xpd =TRUE)
-dev.print(device=pdf, "figures/fungi/Figure4fs_ASVabundance.pdf", onefile=FALSE)
+#dev.print(device=pdf, "figures/fungi/Figure4fs_ASVabundance.pdf", onefile=FALSE)
 dev.off()
 
 #summarize with dplyr.
@@ -104,7 +109,7 @@ legend(0.1,-0.32,fill = cols25(),legend =  barplot.data[,1],cex = 0.75,xpd =TRUE
 #summarize with dplyr.
 #summarize with dplyr by FAMILY
 asv.filt.abundants.norm.FAMILY = as.data.frame(asv.filt.abundants.norm.barplot) %>% group_by(taxo.abundants$Family) %>% summarise_all(sum)
-write.table(asv.filt.abundants.norm.FAMILY,"results/asv/asv.filt.abundants.norm.FAMILY_fs")
+#write.table(asv.filt.abundants.norm.FAMILY,"results/asv/asv.filt.abundants.norm.FAMILY_fs")
 
 
 ###alpha diversity ----
@@ -146,7 +151,7 @@ abline(v = c(2.5,4.5),lty = 2)
 mtext(names,side = 1,at = c(1:6),cex =0.8,line =1)
 names = expression(italic(control),italic(fertilized),italic(Pepper),italic(Tomato),italic(planted),italic(non-planted))
 
-dev.print(device=pdf, "figures/fungi/Figure4fs_alpha.pdf", onefile=FALSE)
+#dev.print(device=pdf, "figures/fungi/Figure4fs_alpha.pdf", onefile=FALSE)
 dev.off()
 
 ###PcoA ----
@@ -160,7 +165,7 @@ asv.filt.abundants.norm.hel <-decostand(asv.filt.abundants.norm, "hel")
 #The only assumption of PERMANOVA is independence of samples (I think, but could be wrong here)
 permanova = adonis(formula=asv.filt.abundants.norm.hel~fertilization*planted*species,strata=(design.keep$bloc/design.keep$replicate), data=design.keep, permutations=9999, method="bray")
 permanova$aov.tab$comparison = "soil_fungi"
-write.table(permanova$aov.tab,"results/asv/permanova.soil_fungi")
+#write.table(permanova$aov.tab,"results/asv/permanova.soil_fungi")
 
 #                       Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 #fertilization                   1    0.3632 0.36325   6.237 0.02434 0.0002           
@@ -204,96 +209,10 @@ legend(0.36,0.2,fill = rep("transparent",3), border = c("darkorange","darkblue")
 
 #inoculation text (this is a pain...)
 text(c(0.42,0.49),c(0.22,0.22),c("fertilized","control"),srt = 45,pos = 3,font =3)
-dev.print(device=pdf, "figures/fungi/Figure5fs_pcoa.pdf", onefile=FALSE)
+#dev.print(device=pdf, "figures/fungi/Figure5fs_pcoa.pdf", onefile=FALSE)
 dev.off()
 
 
 
-###RDA ----
-####setting things up
-productivity = read.table("results/plant_productivity_data.tsv", header = T, stringsAsFactors = F,sep = "\t")
-productivity.norm = productivity
-
-
-#we do a sqrt transformation on all variables to help in normalizing (it helps in all cases, but it's not perfect. Some residuals are still not normally distributed. But the effect is so strong that we don't care too much.)
-productivity.norm$fruit.number = sqrt(productivity$fruit.number)
-productivity.norm$fruits.weight = sqrt(productivity$fruits.weight)
-productivity.norm$shoots.fresh.weight = sqrt(productivity$shoots.fresh.weight)
-productivity.norm$shoots.dry.weight = sqrt(productivity$shoots.dry.weight)
-productivity.norm$roots.fresh.weight = sqrt(productivity$roots.fresh.weight)
-productivity.norm$roots.dry.weight = sqrt(productivity$roots.dry.weight)
-#####
-#keep samples of interest in a new design.keep dataframe.
-productivity.norm.keep = productivity.norm[0,]
-for(i in 1:nrow(asv.filt.abundants.norm))
-{
-  temp = productivity.norm[productivity.norm[,16] == rownames(asv.filt.abundants.norm)[i],]
-  if(nrow(temp)==1) productivity.norm.keep[i,] = temp
-  if(nrow(temp)==0) productivity.norm.keep[i,] = rep(0,16)
-}
-
-candidate.ASV = NULL
-#Do an RDA for TOMATOES or PEPPERS only (given that we know that both crops differ a lot...)
-for(species in c("Tomato","Pepper"))
-{
-  #keep only one species in the ASV matrix and the PRODUCTIVITY matrix
-  productivity.norm.keep.species = productivity.norm.keep[productivity.norm.keep[,1] == species,]
-  asv.filt.abundants.norm.species = asv.filt.abundants.norm[productivity.norm.keep[,1] == species,]
-  
-  #hellinger transform
-  asv.filt.abundants.norm.species.hel = decostand(asv.filt.abundants.norm.species, "hel")
-  
-  #RDA (Constrained Ordination)
-  rda = cca(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(6,8,9,10)])
-  
-  #verify model significance
-  print(anova.cca(rda))
-  
-  #plot
-  dev.new(width=7, height=7,units = "inch")
-  par(mar=c(6,6,4,2),xpd =T,mgp = c(3.5,2,1))
-  rda.plot = plot(rda,scaling = "species",type = "n")
-  xlims = c(min(rda.plot$sites[,1])*1.1,max(rda.plot$sites[,1])*1.1)
-  ylims = c(min(rda.plot$sites[,2])*1.1,max(rda.plot$sites[,2])*1.1)
-  rda.plot2 = plot(rda,scaling = "species",display = c("sp", "bp"),main = paste(species," (soil - fungi)",sep = ""),xlim = xlims,ylim = ylims)
-  #  xlim = c(-4,4),ylim = c(-4,4)
-  #coloring for fertilization
-  col = ifelse(productivity.norm.keep.species[,2] == "F+","goldenrod4","darkgrey")
-  
-  #add plot sites
-  text(rda.plot$sites,labels = rownames(rda.plot$sites),cex = 0.7, col = col,font = 2,adj = 0.8)
-  
-  #Candidate ASVs (top10?) closest to arrowheads (excluding avg fruit weigth)
-  factors = c(1,3,4)     #remove avg. fruit weight. it is orthogonal to the other variables
-  arrow_x = mean(rda.plot2$biplot[factors,1]*attr(rda.plot2$biplot,"arrow.mul"))
-  arrow_y = mean(rda.plot2$biplot[factors,2]*attr(rda.plot2$biplot,"arrow.mul"))
-  
-  dist_x = arrow_x - rda.plot2$species[,1]
-  dist_y = arrow_y - rda.plot2$species[,2]
-  dist = abs(dist_x)+abs(dist_y)
-  
-  #candidate top10 and plot it.
-  candidate.top10 = rda.plot$species[order(dist),][1:10,]
-  points(candidate.top10,lwd =4,col = "red")
-  
-  candidate.ASV = rbind(candidate.ASV,cbind(candidate.top10,species))
-  
-  dev.print(device=pdf, paste("figures/fungi/Figure6fs_RDA_",species,".pdf",sep = ""), onefile=FALSE)
-  dev.off()
-}
-
-
-#candidates with taxonomy
-candidate.ASV = cbind(rownames(candidate.ASV),candidate.ASV)
-colnames(candidate.ASV)[1] = "ASV"
-
-#taxo with ASV
-taxo.abundants$ASV = rownames(taxo.abundants)
-
-#inner join
-candidate.ASV.taxo = inner_join(as.data.frame(candidate.ASV,stringsAsFactors = F),taxo.abundants,by = "ASV")
-
-#
-write.table(candidate.ASV.taxo,"results/candidate.ASV.fs.txt",row.names = T, col.names = T, quote = T)
-
+###RDA ---
 

@@ -41,6 +41,10 @@ sum(asv.filt.abundants)/sum(asv.filt)
 #relative abundance
 asv.filt.abundants.norm = asv.filt.abundants/rowSums(asv.filt.abundants)
 
+#save it 
+write.table(asv.filt.abundants.norm,"results/asv.filt.abundants.norm_fr")
+write.table(taxo.abundants,"results/taxo.abundants_fr")
+
 ###statistal analyses on ASVs----
 design = read.table("reference_material/experimental_design.txt", header = TRUE, stringsAsFactors = FALSE)
 
@@ -191,94 +195,6 @@ dev.off()
 
 
 ###RDA-----
-####setting things up
-productivity = read.table("results/plant_productivity_data.tsv", header = T, stringsAsFactors = F,sep = "\t")
-productivity.norm = productivity
-
-
-#we do a sqrt transformation on all variables to help in normalizing (it helps in all cases, but it's not perfect. Some residuals are still not normally distributed. But the effect is so strong that we don't care too much.)
-productivity.norm$fruit.number = sqrt(productivity$fruit.number)
-productivity.norm$fruits.weight = sqrt(productivity$fruits.weight)
-productivity.norm$shoots.fresh.weight = sqrt(productivity$shoots.fresh.weight)
-productivity.norm$shoots.dry.weight = sqrt(productivity$shoots.dry.weight)
-productivity.norm$roots.fresh.weight = sqrt(productivity$roots.fresh.weight)
-productivity.norm$roots.dry.weight = sqrt(productivity$roots.dry.weight)
-#####
-
-#keep samples of interest in a new design.keep dataframe.
-productivity.norm.keep = NULL
-for(i in 1:nrow(asv.filt.abundants.norm))
-{
-  productivity.norm.keep = rbind(productivity.norm.keep,productivity.norm[productivity.norm[,15] == rownames(asv.filt.abundants.norm)[i],])
-}
-
-candidate.ASV = NULL
-#Do an RDA for TOMATOES or PEPPERS only (given that we know that both crops differ a lot...)
-for(species in c("Tomato","Pepper"))
-{
-  #keep only one species in the ASV matrix and the PRODUCTIVITY matrix
-  productivity.norm.keep.species = productivity.norm.keep[productivity.norm.keep[,1] == species,]
-  asv.filt.abundants.norm.species = asv.filt.abundants.norm[productivity.norm.keep[,1] == species,]
-  
-  #keep only the non-zeros...
-  asv.filt.abundants.norm.species = asv.filt.abundants.norm.species[,colSums(asv.filt.abundants.norm.species)!=0]
-  
-  #hellinger transform
-  asv.filt.abundants.norm.species.hel = decostand(asv.filt.abundants.norm.species, "hel")
-  
-  #RDA (Constrained Ordination)
-  rda = cca(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(6,8,9,10)])
-  
-  #verify model significance
-  print(anova.cca(rda))
-  
-  #plot
-  dev.new(width=7, height=7,units = "inch")
-  par(mar=c(6,6,4,2),xpd =T,mgp = c(3.5,2,1))
-  rda.plot = plot(rda,scaling = "species",type = "n")
-  xlims = c(min(rda.plot$sites[,1])*1.1,max(rda.plot$sites[,1])*1.1)
-  ylims = c(min(rda.plot$sites[,2])*1.1,max(rda.plot$sites[,2])*1.1)
-  rda.plot2=plot(rda,scaling = "species",display = c("sp", "bp"),main = paste(species," (root - fungi)",sep = ""),xlim = xlims,ylim = ylims)
-  #  xlim = c(-4,4),ylim = c(-4,4)
-  #coloring for fertilization
-  col = ifelse(productivity.norm.keep.species[,2] == "F+","goldenrod4","darkgrey")
-  
-  #add plot sites
-  text(rda.plot$sites,labels = rownames(rda.plot$sites),cex = 0.7, col = col,font = 2,adj = 0.8)
-  
-  #Candidate ASVs (top10?) closest to arrowheads (excluding avg fruit weigth)
-  factors = c(1,3,4)     #remove avg. fruit weight for tomato
-  arrow_x = mean(rda.plot2$biplot[factors,1]*attr(rda.plot2$biplot,"arrow.mul"))
-  arrow_y = mean(rda.plot2$biplot[factors,2]*attr(rda.plot2$biplot,"arrow.mul"))
-  
-  dist_x = arrow_x - rda.plot2$species[,1]
-  dist_y = arrow_y - rda.plot2$species[,2]
-  dist = abs(dist_x)+abs(dist_y)
-  
-  #candidate top10 and plot it.
-  candidate.top10 = rda.plot$species[order(dist),][1:10,]
-  points(candidate.top10,lwd =4,col = "red")
-  
-  candidate.ASV = rbind(candidate.ASV,cbind(candidate.top10,species))
-  
-  dev.print(device=pdf, paste("figures/fungi/Figure6fr_RDA_",species,".pdf",sep = ""), onefile=FALSE)
-  dev.off()
-}
-
-#candidates with taxonomy
-candidate.ASV = cbind(rownames(candidate.ASV),candidate.ASV)
-colnames(candidate.ASV)[1] = "ASV"
-
-#taxo with ASV
-taxo.abundants$ASV = rownames(taxo.abundants)
-
-#inner join
-candidate.ASV.taxo = inner_join(as.data.frame(candidate.ASV,stringsAsFactors = F),taxo.abundants,by = "ASV")
-
-#
-write.table(candidate.ASV.taxo,"results/candidate.ASV.fr.txt",row.names = T, col.names = T, quote = T)
-
-
 
 
 ###sandbox -----

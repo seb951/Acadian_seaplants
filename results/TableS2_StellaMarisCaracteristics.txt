@@ -1,0 +1,17 @@
+Appearance 	Viscous Brownish-Black Liquid
+Odor	Marine Odor
+Solubility in water (%)	100
+pH 	7.4 - 8.2
+Carbohydrates	"Alginic acid, Mannitol, Fucoidans"
+Organic matter content (%)	13.0 - 16.0 
+Total Nitrogen (N) (%)	0.1 - 0.6
+Available phosphate (P2O5) (%)	< 0.2
+Soluble potash (K2O) (%)	5.0 - 7.0
+Sulphur (S) (%)	0.3 - 0.6
+Magnesium (Mg) (%)	0.05 - 0.15
+Calcium (Ca) (%)	0.05 - 0.15
+Sodium (Na) (%)	0.7 - 1.2
+Iron (Fe) (ppm)	30 - 90 
+Cooper (Cu) (ppm)	< 4
+Manganese (Mn) (ppm)	3 - 11
+Boron (B) (ppm)	20 - 40
