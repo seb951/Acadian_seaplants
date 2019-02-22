@@ -72,7 +72,7 @@ for(biotope in c("soil","root"))
     asv.filt.abundants.norm.species.hel = decostand(asv.filt.abundants.norm.species, "hel")
     
     #RDA (Constrained Ordination)
-    rda = cca(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(6,8,9,10)])
+    rda = cca(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(2)])
     
     
     
@@ -88,4 +88,47 @@ varpart = varpart(
   data= productivity.norm.keep.species[,c(6,8,9,10)],transfo="hel")
 #plot
 plot(varpart,alpha = 50,bg = c("orange","blue"))
+
+
+
+
+###
+rda = rda(d, ifelse(productivity.norm.keep.species[,c(2)]=="F+",1,0))
+rda.plot=plot(rda,scaling = "species")
+points(rda,scaling = "species",display = c("sp"),pch = 3,col = "red",cex = 0.6)
+points(rda,scaling = "species",display = c("bp"),pch = 3,col = "blue")
+text(rda,scaling = "species",display = c("bp"),col = "blue",cex = 0.8,font = 2)
+
+col = ifelse(productivity.norm.keep.species[,2] == "F+","goldenrod4","darkgrey")
+
+#add plot sites
+text(rda.plot$sites,labels = rownames(rda.plot$sites),cex = 0.7, col = col,font = 2,adj = 0.8)
+
+#Candidate ASVs (top10?) closest to arrowheads (excluding avg fruit weigth)
+factors = c(1)     #remove avg. fruit weight. it is orthogonal to the other variables
+arrow_x = mean(rda.plot$biplot[factors,1]*ordiArrowMul(rda,display = "bp"))
+arrow_y = mean(rda.plot$biplot[factors,2]*ordiArrowMul(rda,display = "bp"))
+
+dist_x = arrow_x - rda.plot$species[,1]
+dist_y = arrow_y - rda.plot$species[,2]
+dist_y = 0
+dist = abs(dist_x)+abs(dist_y)
+
+#candidate top10 and plot it.
+candidate.top10 = rda.plot$species[order(dist),][1:20,]
+points(candidate.top10,pch = 20, lwd =6,col = "green")
+
+candidate.ASV = rbind(candidate.ASV,cbind(candidate.top10,species))
+
+
+####loop the t.test association with fertilization...
+t.test.stat = cbind(rep(0,ncol(asv.filt.abundants.norm.species.hel)),0)
+for(i in 1:ncol(asv.filt.abundants.norm.species.hel))
+{
+ t.test = t.test((asv.filt.abundants.norm.species.hel[ifelse(productivity.norm.keep.species[,c(2)]=="F+",T,F),i]),(asv.filt.abundants.norm.species.hel[ifelse(productivity.norm.keep.species[,c(2)]=="F+",F,T),i]))
+ t.test.stat[i,1] = t.test$p.value
+ t.test.stat[i,2] = t.test$estimate[1] - t.test$estimate[2]
+ 
+}
+
 

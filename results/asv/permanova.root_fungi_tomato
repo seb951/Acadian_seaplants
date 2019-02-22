@@ -1,0 +1,4 @@
+"Df" "SumsOfSqs" "MeanSqs" "F.Model" "R2" "Pr(>F)" "comparison"
+"fertilization" 1 0.844133983666488 0.844133983666488 17.6826768969273 0.291395795326601 1e-04 "root_fungi_tomato"
+"Residuals" 43 2.05272999723059 0.0477379069123394 NA 0.708604204673399 NA "root_fungi_tomato"
+"Total" 44 2.89686398089708 NA NA 1 NA "root_fungi_tomato"

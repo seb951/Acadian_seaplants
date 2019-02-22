@@ -1,0 +1,8 @@
+"fungi-soil" "fungi-root" "bacteria-soil" "bacteria-root"
+"amendment" "0.02***" "0.08***" "0.04***" "0.07***"
+"planted" "0.21***" NA "0.13***" NA
+"species" "0.02***" "0.26***" "0.02***" "0.52***"
+"amendment:planted" "0.01**" NA "0.02***" NA
+"amendment:species" "0.01*" "0.04*" "0.03***" "0.05***"
+"planted:species" "0.01" NA "0.01**" NA
+"amendment:planted:species" "0.01" NA "0.01*" NA

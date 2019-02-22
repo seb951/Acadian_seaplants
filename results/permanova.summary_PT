@@ -1,0 +1,4 @@
+"soil_fungi_tomato" "soil_fungi_pepper" "root_fungi_tomato" "root_fungi_pepper" "soil_bact_tomato" "soil_bact_pepper" "root_bact_tomato" "root_bact_pepper"
+"amendment" "0.05***" "0.03**" "0.29***" "0.1***" "0.06***" "0.06***" "0.3***" "0.09***"
+"planted" "0.24***" "0.2***" NA NA "0.17***" "0.12***" NA NA
+"amendment:planted" "0.02*" "0.02*" NA NA "0.04**" "0.02*" NA NA

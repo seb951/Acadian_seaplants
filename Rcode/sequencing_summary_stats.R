@@ -52,24 +52,32 @@ write.table(summary.table, "summary.table",row.names = F)
 
 
 ###table 2 - permanova --- 
-permanova.soil_fungi = read.table("results/asv/permanova.soil_fungi",header = T)
-permanova.root_fungi = read.table("results/asv/permanova.root_fungi",header = T)
-permanova.soil_bacteria = read.table("results/asv/permanova.soil_bacteria",header = T)
-permanova.root_bacteria = read.table("results/asv/permanova.root_bacteria",header = T)
+permanova.soil_fungi_tomato = read.table("asv/permanova.soil_fungi_tomato",header = T)
+permanova.root_fungi_tomato = read.table("asv/permanova.root_fungi_tomato",header = T)
+permanova.soil_bacteria_tomato = read.table("asv/permanova.soil_bacteria_tomato",header = T)
+permanova.root_bacteria_tomato = read.table("asv/permanova.root_bacteria_tomato",header = T)
+permanova.soil_fungi_pepper = read.table("asv/permanova.soil_fungi_pepper",header = T)
+permanova.root_fungi_pepper = read.table("asv/permanova.root_fungi_pepper",header = T)
+permanova.soil_bacteria_pepper = read.table("asv/permanova.soil_bacteria_pepper",header = T)
+permanova.root_bacteria_pepper = read.table("asv/permanova.root_bacteria_pepper",header = T)
 
-permanova.summary = matrix(NA,nrow = 7,ncol = 4)
-colnames(permanova.summary) = c("soil_fungi","root_fungi","soil_bact","root_bact")
-rownames(permanova.summary) = rownames(permanova.soil_fungi)[1:7]
+permanova.summary = matrix(NA,nrow = 3,ncol = 8)
+colnames(permanova.summary) = c("soil_fungi_tomato","soil_fungi_pepper","root_fungi_tomato","root_fungi_pepper","soil_bact_tomato","soil_bact_pepper","root_bact_tomato","root_bact_pepper")
+rownames(permanova.summary) = rownames(permanova.soil_fungi_tomato)[1:3]
 
-permanova.summary[,1] = paste(round(permanova.soil_fungi$R2[1:7],2)," (",round(permanova.soil_fungi$Pr..F.[1:7],4),")",sep = "")
-permanova.summary[c(1,3,5),2] = paste(round(permanova.root_fungi$R2[1:3],2)," (",round(permanova.root_fungi$Pr..F.[1:3],4),")",sep = "")
-permanova.summary[,3] = paste(round(permanova.soil_bacteria$R2[1:7],2)," (",round(permanova.soil_bacteria$Pr..F.[1:7],4),")",sep = "")
-permanova.summary[c(1,3,5),4] = paste(round(permanova.root_bacteria$R2[1:3],2)," (",round(permanova.root_bacteria$Pr..F.[1:3],4),")",sep = "")
+permanova.summary[,1] = paste(round(permanova.soil_fungi_tomato$R2[1:3],2)," (",round(permanova.soil_fungi_tomato$Pr..F.[1:3],4),")",sep = "")
+permanova.summary[,2] = paste(round(permanova.soil_fungi_pepper$R2[1:3],2)," (",round(permanova.soil_fungi_pepper$Pr..F.[1:3],4),")",sep = "")
 
-write.table(permanova.summary,"results/permanova.summary")
+permanova.summary[1,3] = paste(round(permanova.root_fungi_tomato$R2[1],2)," (",round(permanova.root_fungi_tomato$Pr..F.[1],4),")",sep = "")
+permanova.summary[1,4] = paste(round(permanova.root_fungi_pepper$R2[1],2)," (",round(permanova.root_fungi_pepper$Pr..F.[1],4),")",sep = "")
 
+permanova.summary[,5] = paste(round(permanova.soil_bacteria_tomato$R2[1:3],2)," (",round(permanova.soil_bacteria_tomato$Pr..F.[1:3],4),")",sep = "")
+permanova.summary[,6] = paste(round(permanova.soil_bacteria_pepper$R2[1:3],2)," (",round(permanova.soil_bacteria_pepper$Pr..F.[1:3],4),")",sep = "")
 
-permanova.summary
+permanova.summary[1,7] = paste(round(permanova.root_bacteria_tomato$R2[1],2)," (",round(permanova.root_bacteria_tomato$Pr..F.[1],4),")",sep = "")
+permanova.summary[1,8] = paste(round(permanova.root_bacteria_pepper$R2[1],2)," (",round(permanova.root_bacteria_pepper$Pr..F.[1],4),")",sep = "")
+
+write.table(permanova.summary,"permanova.summary")
 
 
 

@@ -1,0 +1,5 @@
+$if(running)$
+
+\vskip 8.5pt \noindent \emph{running}: $running$ \par
+
+    \hbox{\vrule height .2pt width 39.14pc}

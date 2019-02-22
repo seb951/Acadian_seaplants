@@ -1,0 +1,4 @@
+"Df" "SumsOfSqs" "MeanSqs" "F.Model" "R2" "Pr(>F)" "comparison"
+"fertilization" 1 0.475612887631814 0.475612887631814 3.69147497202529 0.0979392548252652 1e-04 "root_fungi_pepper"
+"Residuals" 34 4.38058995442944 0.128840881012631 NA 0.902060745174735 NA "root_fungi_pepper"
+"Total" 35 4.85620284206125 NA NA 1 NA "root_fungi_pepper"
