@@ -30,7 +30,7 @@ asv.sum = rowSums(asv)
 min(asv.sum);max(asv.sum)
 asv.sum.mean = mean(asv.sum) 
 asv.sum.sd = sd(asv.sum)
-asv.filt = asv[asv.sum > (asv.sum.mean - 4*asv.sum.sd),]
+#asv.filt = asv[asv.sum > (asv.sum.mean - 4*asv.sum.sd),]
 asv.filt = asv[asv.sum > 1000,]
 dim(asv.filt)
 

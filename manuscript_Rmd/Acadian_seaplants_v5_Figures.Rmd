@@ -5,7 +5,7 @@ output:
     keep_tex: false
     fig_caption: false
     latex_engine: pdflatex
-    template: ../bibliography/svm-latex-ms.tex
+    template: ../bibliography/sr-latex-ms.tex
 title: "Figures & Tables: A commercial seaweed extract strongly structured microbial communities associated with tomato and pepper roots and significantly increased crop yield"
 author:
 - name: Sébastien Renaut^1,2^, Jacynthe Masse^1,2^, Jeffrey P. Norrie^3^, Bachar Blal^3^ Mohamed Hijri^1,2^
@@ -111,10 +111,11 @@ summary.table[,2] = summary.table[,2]*1000
 summary.table=t(summary.table[c(4:1),])
 summary.table[1,] = c(192,96,192,96)
 summary.table = summary.table[c(2:6,1,9,8,10,7),]
-rownames(summary.table) = c("No sequences (sum)","No sequences (mean)","No seq. filtered (mean)","No seq. filt. merged (mean)","No seq. filt. merg. no chimeras (mean)","No samples","No samples trimmed","No ASV (sum)","No ASV trimmed (sum)","ASV per sample (mean)")
+rownames(summary.table) = c("No sequences (sum)","No sequences (mean)","No seq. filtered (mean)","No seq. filt. merged (mean)","No seq. filt. merg. no chimeras (mean)","No samples","No samples trimmed","No ASV (sum)","No ASV trimmed (sum)","No ASV trimmed per sample (mean)")
 kable(summary.table,format.args=list(big.mark = ','), digits =4,caption = "Table S4: Summary of sequencing statistics and bioinformatics identification of ASV")
 ```
- 
+   
+*No sequences (sum)*: Total number of paired-end sequencing reads per biotope. *No sequences (mean)*: Average number of paired-end sequencing reads per sample. *No seq. filtered (mean)*: Total number of filtered paired-end sequencing reads per sample. *No seq. filt. merged (mean)*: Number of filtered paired-end sequencing reads merged per sample. *No seq. filt. merg. no chimeras (mean)*: Average Number of filtered paired-end sequencing reads merged, removing chimeras per sample. No samples: Number of samples. *No samples trimmed*: Number of samples, filtering out low quality samples. *No ASV (sum)*: Total number of ASV. *No ASV trimmed (sum)*: Total number of ASV, filtering out low abundance ASV and chloroplast or mitochondrial ASV for bacterial samples. *No ASV trimmed per sample (mean)*: Average number of filtered ASV per sample.  
 
 \newpage 
 ```{r tableS5, echo=F}

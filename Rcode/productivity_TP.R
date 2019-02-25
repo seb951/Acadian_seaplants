@@ -85,12 +85,12 @@ mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),paste("Tomato\n(",t_fc,"X)",s
 text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
 text(labels = names,x = c(1,2,3,4),c(-2,-2,-2,-2),srt = 60,xpd = T,adj = 1)
 
-x=boxplot(average.fruit.weight~treatment*plant,data = productivity_all,ylim = c(0,max(productivity_all$average.fruit.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Avg fruit fresh weight",ylab = "grams")
+x=boxplot(average.fruit.weight~treatment*plant,data = productivity_all,ylim = c(0,max(productivity_all$average.fruit.weight)*1.2),names = names,font = 2,cex.main = 1.5, main = "Avg fruit fresh weight",ylab = "grams")
 abline(v = 2.5,lty = 2)
 p_fc = signif(mean(p_p$average.fruit.weight[p_p[,2]== "F+"])/mean(p_p$average.fruit.weight[p_p[,2]== "F-"]),3)
 t_fc = signif(mean(p_t$average.fruit.weight[p_t[,2]== "F+"])/mean(p_t$average.fruit.weight[p_t[,2]== "F-"]),3)
 mtext(text = c(paste("Pepper\n(",p_fc,"X)",sep=""),"Tomato"),at = c(1.5,3.5),side = 1,line = c(-23,-25),cex = 1.5)
-#text(labels = c("a","b","a","b"),x = c(1.2,2.2,3.2,4.2),y = x$stats[5,]+max(x$stats[5,])/20,cex = 1.5,font =3)
+text(labels = c("a","b"),x = c(1.2,2.2),y = x$stats[5,1:2]+max(x$stats[5,1:2])/20,cex = 1.5,font =3)
 
 x=boxplot(shoots.fresh.weight~treatment*plant,data = productivity_all,ylim = c(0,max(productivity_all$shoots.fresh.weight)*1.0),names = names,font = 2,cex.main = 1.5, main = "Shoot fresh weight",ylab = "grams")
 abline(v = 2.5,lty = 2)

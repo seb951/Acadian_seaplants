@@ -32,8 +32,8 @@ asv.sum = rowSums(asv)
 min(asv.sum);max(asv.sum)
 asv.sum.mean = mean(asv.sum) 
 asv.sum.sd = sd(asv.sum)
-asv.filt = asv[asv.sum > (asv.sum.mean - 4*asv.sum.sd),]
-#asv.filt = asv[asv.sum > 1000,]
+#asv.filt = asv[asv.sum > (asv.sum.mean - 4*asv.sum.sd),]
+asv.filt = asv[asv.sum > 1000,]
 
 #98% of ASVs are present in less than 10 individuals (5% of samples): this is huge. and justifies the clustering I think for soil bacteria....
 asv.singletons = rep(0,ncol(asv.filt))
