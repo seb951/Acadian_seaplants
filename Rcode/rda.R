@@ -69,12 +69,17 @@ for(biotope in c("soil","root"))
     rda = rda(asv.filt.abundants.norm.species.hel, productivity.norm.keep.species[,c(6,8,9,10)])
     
     #verify model significance
-    print(anova.cca(rda))
-    
+    print(anova.cca(rda,permutations = 10000))
+   
     #plot
     if(species == "Tomato" & biotope == "soil") dev.new()
     if(species == "Tomato" & biotope == "soil") dev.new(width=7, height=7,units = "inch",noRStudioGD=T)
     if(species == "Tomato" & biotope == "soil") par(mar=c(5,5,2,1),xpd =T,mgp = c(3.5,2,1),mfrow=c(2,2))
+    
+    #add the PVE (no, read "Variance explained by ordination axes" in the official vegan vignette: https://cran.r-project.org/web/packages/vegan/vignettes/FAQ-vegan.html)
+    #xlab = paste("RDA1 (",signif(summary(eigenvals(rda))[2,1],3)*100,"%)",sep = "")
+    #ylab = paste("RDA2 (",signif(summary(eigenvals(rda))[2,2],3)*100,"%)",sep = "")
+    
     
     rda.plot = plot(rda,scaling = "species",type = "n",font=2,cex.lab=1.2,font.lab=2,main = paste(species," (",biotope," - ",ifelse(spp == "b","bacteria","fungi"),")",sep = ""))
     points(rda,scaling = "species",display = c("sp"),pch = 3,col = "red",cex = 0.6)
@@ -100,7 +105,7 @@ for(biotope in c("soil","root"))
     points(candidate.top10,pch = 3, lwd =1,col = "blue")
     
     candidate.ASV = rbind(candidate.ASV,cbind(candidate.top10,species))
-    
+
     
     #get abundance data for the candidate ten most associated with productivity
     out=NULL
@@ -129,8 +134,8 @@ for(biotope in c("soil","root"))
   candidate.ASV.taxo = inner_join(as.data.frame(candidate.ASV,stringsAsFactors = F),taxo.abundants,by = "ASV")
   
   #save candidates
-  if(biotope == "soil") write.table(candidate.ASV.taxo,paste("results/candidate.ASV.",spp,"s.txt",sep=""),row.names = T, col.names = T, quote = T)
-  if(biotope == "root") write.table(candidate.ASV.taxo,paste("results/candidate.ASV.",spp,"r.txt",sep=""),row.names = T, col.names = T, quote = T)
+#  if(biotope == "soil") write.table(candidate.ASV.taxo,paste("results/candidate.ASV.",spp,"s.txt",sep=""),row.names = T, col.names = T, quote = T)
+#  if(biotope == "root") write.table(candidate.ASV.taxo,paste("results/candidate.ASV.",spp,"r.txt",sep=""),row.names = T, col.names = T, quote = T)
   
   if(biotope == "root" & spp == "f") dev.print(device=pdf,"figures/fungi/Figure5f_RDA.pdf", onefile=FALSE)
   if(biotope == "root" & spp == "b") dev.print(device=pdf,"figures/bacteria/Figure6b_RDA.pdf", onefile=FALSE)

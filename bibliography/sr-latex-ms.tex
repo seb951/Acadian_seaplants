@@ -166,6 +166,22 @@ $endif$
 \providecommand{\tightlist}{%
 \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+% Stuff I added.
+% --------------
+
+\usepackage{indentfirst}
+% \usepackage[doublespacing]{setspace}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{layout}   
+\lhead{\sc $if(runhead)$$runhead$$else$$title$$endif$}
+\chead{}
+\rhead{\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+
 \begin{document}
 	
 % \pagenumbering{arabic}% resets `page` counter to 1 

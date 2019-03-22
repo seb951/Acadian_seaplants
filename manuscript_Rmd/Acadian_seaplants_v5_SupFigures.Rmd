@@ -1,0 +1,110 @@
+---
+output: 
+#  word_document:
+  pdf_document:
+    keep_tex: false
+    fig_caption: false
+    latex_engine: pdflatex
+    template: ../bibliography/sr-latex-ms.tex
+title: "Supplementary Figures & Tables: A commercial seaweed extract structured microbial communities associated with tomato and pepper roots and significantly increased crop yield"
+author:
+- name: Sébastien Renaut^1,2^, Jacynthe Masse^1,2^, Jeffrey P. Norrie^3^, Bachar Blal^3^ Mohamed Hijri^1,2^
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+runhead: "Seaweed extracts affect microbial communities"
+geometry: margin=1in
+fontfamily: mathpazo
+csl: ../bibliography/envmicrob.csl
+fontsize: 11pt
+spacing: double
+bibliography: ../bibliography/reference.bib
+biblio-style: apsr
+endnote: no
+header-includes:
+  - \usepackage[left]{lineno}
+  - \linenumbers
+  - \usepackage{caption}
+  - \captionsetup{labelformat=empty} 
+---
+  
+&nbsp;  
+\newpage 
+```{r tableS1, echo=F}
+library(knitr)
+#Table S1
+permanova.summary = read.table("../results/nutrients.csv",sep = ",", header = T)
+colnames(permanova.summary) = sub("."," ",colnames(permanova.summary),fixed =T)
+kable(permanova.summary,digits =4,caption = "Table S1: Soil characteristics (in *ppm* unless specified otherwise)")
+```
+
+&nbsp;  
+&nbsp;  
+&nbsp;  
+\newpage   
+![Table S2](../figures/Figure1.png){width=650px}  
+**Table S2: Randomized split block design for the tomato and pepper experiments**  
+
+  
+&nbsp;  
+&nbsp;  
+&nbsp;  
+\newpage   
+```{r tableS3, out.width = "80%", fig.cap = "Table S2: Stella Maris® characteristics", echo = F}
+library(knitr)
+#Table S3
+table_S3 = read.table("../results/TableS2_StellaMarisCaracteristics.txt",sep = "\t")
+colnames(table_S3) = c("Stella Maris® characteristics","Average value")
+kable(table_S3,digits =4, caption = "Table S3: Stella Maris® characteristics")
+``` 
+  
+&nbsp;  
+&nbsp;  
+&nbsp;  
+\newpage 
+```{r tableS4, echo=F}
+library(knitr)
+#Table S4
+summary.table=read.table("../results/summary.table",header = T,row.names = 1)
+colnames(summary.table)[2] = "Nb_seq_sum"
+summary.table[,2] = summary.table[,2]*1000
+summary.table=t(summary.table[c(4:1),])
+summary.table[1,] = c(192,96,192,96)
+summary.table = summary.table[c(2:6,1,9,8,10,7),]
+rownames(summary.table) = c("No sequences (sum)","No sequences (mean)","No seq. filtered (mean)","No seq. filt. merged (mean)","No seq. filt. merg. no chimeras (mean)","No samples","No samples trimmed","No ASV (sum)","No ASV trimmed (sum)","No ASV trimmed per sample (mean)")
+kable(summary.table,format.args=list(big.mark = ','), digits =4,caption = "Table S4: Summary of sequencing statistics and bioinformatics identification of ASV")
+```
+   
+*No sequences (sum)*: Total number of paired-end sequencing reads per biotope. *No sequences (mean)*: Average number of paired-end sequencing reads per sample. *No seq. filtered (mean)*: Total number of filtered paired-end sequencing reads per sample. *No seq. filt. merged (mean)*: Number of filtered paired-end sequencing reads merged per sample. *No seq. filt. merg. no chimeras (mean)*: Average Number of filtered paired-end sequencing reads merged, removing chimeras per sample. No samples: Number of samples. *No samples trimmed*: Number of samples, filtering out low quality samples. *No ASV (sum)*: Total number of ASV. *No ASV trimmed (sum)*: Total number of ASV, filtering out low abundance ASV and chloroplast or mitochondrial ASV for bacterial samples. *No ASV trimmed per sample (mean)*: Average number of filtered ASV per sample.  
+
+\newpage 
+```{r tableS5, echo=F}
+library(knitr)
+#Table 1S5
+permanova.summary = read.table("../results/deprecated/permanova.summary")
+colnames(permanova.summary) = c("fungi-soil","fungi-root","bacteria-soil","bacteria-root")
+kable(permanova.summary,digits =4,caption = "Table S5: Variance explained by the terms in the PERMANOVA models.")
+``` 
+
+$r^2$ (percentage of variance explained by the term in the model); *\*p-value<0.05, \*\*<0.005,  \*\*\*<0.0005*  
+
+\newpage 
+  
+&nbsp;  
+&nbsp;  
+&nbsp; 
+![Figure S1](../figures/Figure_2_photos_productivity.png){width=500px}  
+**Figure S1: Plant productivity. Photos were taken at the end of the experimental treatment. In each photo, amended plants are on the left. A: pepper shoots, B: pepper roots, C: pepper fruits and D: tomato fruits.**  
+&nbsp;  
+&nbsp;  
+&nbsp;  
+![Figure S2](../figures/fungi/Figure7_fungi_tree.pdf){width=500px, dpi=500}  
+**Figure S2: Neighbor-Joining trees of candidates ASV (fungi) most positively associated with productivity measures as identified in Figure 5. The most accurate taxonomy assigned according to the RDP bayesian classifier (form Phylum to species) was added as tip labels.** 
+&nbsp;  
+&nbsp;  
+&nbsp;  
+![Figure S3](../figures/bacteria/Figure7_bacteria_tree.pdf){width=500px, dpi=500}  
+**Figure S3: Neighbor-Joining trees of candidates ASV (bacteria) most positively associated with productivity measures as identified in Figure 6. The most accurate taxonomy assigned according to the RDP bayesian classifier (form Phylum to species) was added as tip labels.** 
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
+
